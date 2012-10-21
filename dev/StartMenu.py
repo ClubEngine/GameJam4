@@ -35,12 +35,20 @@ class StartMenu:
             self.startGame
         )
 
+    def drawLoading(self):
+        self._main._window.fill(Colors.WHITE)
+        self._main._window.blit(self._backImg, [0, 0])
+
+        text = self._font.render("loading ...", True, Colors.BLACK)
+        self._main._window.blit(text, [self._main._window.get_width()/2-54,35])
+
+        pygame.display.flip()
+
     def draw(self):
         """
         Draw the start menu.
         @param  self [StartMenu]    itself
         """
-        print("bonjour")
         self._main._window.fill(Colors.WHITE)
         self._main._window.blit(self._backImg, [0, 0])
 
