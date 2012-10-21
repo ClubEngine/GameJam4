@@ -10,7 +10,7 @@ decel = 0.002
 class Scene:
 
     def __init__(self, positions):
-        self._players = [ Player("player1", positions[0]), Player("player2", positions[1]) ] 
+        self._players = [ Player("player1", positions[0], self), Player("player2", positions[1], self) ] 
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
@@ -29,9 +29,7 @@ class Scene:
             player = self._players[playerIndex]
             if not self._eventOccured[playerIndex]:
                 for i in range(0,2):
-                    print i
                     speed = player.speed()[i]
-                    print "speed", speed
                     if speed < epsilon and speed > -epsilon:
                         speed = 0
                     else:
@@ -82,11 +80,14 @@ class Scene:
         self._players[playerIndex].attack(elapsedTime) 
         self._soundManager.playSoundFromEvent(playerIndex, SoundManager.ATTACK)
 
-    """ retourne le joueur playerId.
-        playerId vaut 0 ou 1
-    """
     def getPlayer(self, playerId):
+        """ retourne le joueur playerId.
+            playerId vaut 0 ou 1
+        """
         return self._players[playerId]
+
+    def getCollision(self):
+        return self._collision
     
     def introEnd(self):
         self._soundManager.introEnd()

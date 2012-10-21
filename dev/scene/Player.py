@@ -1,23 +1,35 @@
 import pygame 
 
-maxJumpTime = 500
-jumpDelta = 2.0 / (maxJumpTime * maxJumpTime)
 maxAttackTime = 200
 
 class Player:
 
-    def __init__(self, name, position):
+    """
+    Dictionary.
+    action => [time, nb_sprites]
+    """
+    _actions = dict()
+
+    def __init__(self, name, position, scene):
+        # Actions communes a tous les types de personnages
+        self._actions = dict({
+                "melee_attack": [1000,9,10],
+                "ranged_attack" : [1000,9,10],
+                "jump" : [1000,9]})
+
         self._name = name
+        self._scene = scene
         self._life = 100
         self._pos = position
         self._dir = [0, 0, 0]
         self._jumpTime = 0
         self._jumping = False
         self._attackTime = 0
-        self._attacking = False
+        self._attacking = ""
         # speed[0] : forward/backward ; speed[1] : side
         self._speed = [ 0, 0 ]
         self._elapsedTime = 0
+        self._attackFrameNumber = 0
 
     def name(self):
         return name;
@@ -71,7 +83,7 @@ class Player:
     def attack(self, elapsedTime):
         self._elapsedTime = elapsedTime
         if not self._attacking:
-            self._attacking = True
+            self._attacking = "melee_attack"
             self._attackTime = 0
     
     def update(self):
@@ -80,15 +92,28 @@ class Player:
         if self._attacking:
             self._updateAttack(self._elapsedTime)
 
+    def getAttackFrameNumber(self):
+        return self._attackFrameNumber
+
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
+
+        self._attackFrameNumber =(self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0]
+
+        #Collisions
+        if self._scene.getCollision().getDistance() < self._attackFrameNumber and self._scene.getCollision.getCollisionHorizontale() < 1 :
+            self.hurt(self._actions["melee_attack"][2]);
+            
+
+
         if self._attackTime > maxAttackTime:
-            self._attacking = False
-        # Gerer collisions
+            self._attacking = ""
 
     def _updateJump(self, elapsedTime):
         self._jumpTime += elapsedTime
+        maxJumpTime = self._actions["jump"][0]
         jumpTime = (self._jumpTime - maxJumpTime) 
+        jumpDelta = 2.0 / (maxJumpTime * maxJumpTime)
         self._pos[2] = jumpDelta * (-(jumpTime * jumpTime) + maxJumpTime * maxJumpTime)
         if self._jumpTime >= 2*maxJumpTime:
            self._pos[2] = 0
