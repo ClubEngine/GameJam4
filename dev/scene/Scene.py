@@ -10,19 +10,12 @@ deceleration = 0.002
 class Scene:
 
     def __init__(self, positions):
-        self._players = [ Player("player1", positions[0], self), Player("player2", positions[1], self) ] 
+        self._players = [ Player("player1", "ninja", positions[0], self), Player("player2", "pirate", positions[1], self) ] 
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
         self._soundManager.playMusic("fightmusic")
         self._elapsedTime = 0;
-
-    def update(self):
-        for player in self._players:
-            player.update()
-        for playerIndex in range(0, 2):
-            self._collision.moveForward(playerIndex, self._players[playerIndex].speed()[0] * self._elapsedTime)
-            self._collision.moveSide(playerIndex, self._players[playerIndex].speed()[1] * self._elapsedTime)
 
     def _decelerate(self, playerIndex, elapsedTime, ratio=1.0):
         player = self._players[playerIndex]
@@ -49,7 +42,11 @@ class Scene:
         self._eventOccured = [ False, False ]
         self._elapsedTime = elapsedTime
 
-
+        for player in self._players:
+            player.update(elapsedTime)
+        for playerIndex in range(0, 2):
+            self._collision.moveForward(playerIndex, self._players[playerIndex].speed()[0] * self._elapsedTime)
+            self._collision.moveSide(playerIndex, self._players[playerIndex].speed()[1] * self._elapsedTime)
 
     def _move(self, playerIndex, elapsedTime, axe, delta):
         self._eventOccured[playerIndex] = True

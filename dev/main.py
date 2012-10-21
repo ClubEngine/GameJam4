@@ -28,7 +28,7 @@ class Main:
         self._fpsClock = pygame.time.Clock()
         self._window = pygame.display.set_mode(
             (self.width, self.height),
-            pygame.DOUBLEBUF | pygame.FULLSCREEN
+            pygame.DOUBLEBUF
         )
         pygame.display.set_caption(caption)
 
@@ -58,7 +58,6 @@ class Main:
                 self._listener.listen()
                 self._startMenu.draw()
             elif self.state == GameState.IN_GAME:
-                self._scene.update()
                 self._listener.listen()
                 self._screen.draw()
 
