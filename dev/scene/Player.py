@@ -111,7 +111,7 @@ class Player:
         self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
 
         #Collisions
-        if self._scene.getCollision().getDistance() < (50 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
+        if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
             self.hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
