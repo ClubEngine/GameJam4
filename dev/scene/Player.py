@@ -9,7 +9,7 @@ class Player:
     """
     _actions = dict()
 
-    def __init__(self, name, position, scene):
+    def __init__(self, name, typeName, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
                 "melee_attack": [200,9,10],
@@ -17,6 +17,7 @@ class Player:
                 "jump" : [350,9]})
 
         self._name = name
+        self._typeName = typeName
         self._scene = scene
         self._life = 100
         self._pos = position
@@ -32,7 +33,10 @@ class Player:
         self._jumpFrameNumber = 0
 
     def name(self):
-        return self._name;
+        return self._name
+
+    def typeName(self):
+        return self._typeName
 
     def position(self):
         return self._pos
@@ -61,6 +65,7 @@ class Player:
         self._dir[2] = direction[2]        
 
     def hurt(self, damage):
+        self._scene.getSoundManager().playSoundFromEvent(SoundManager.HURT, self._typeName)
         self._life -= damage
         if self._life < 0:
             self._life = 0
@@ -79,14 +84,14 @@ class Player:
         if not self._jumping:
             self._jumpTime = 0 
             self._jumping = True
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP, self._typeName)
             
     def attack(self, elapsedTime):
         self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attacking = "melee_attack"
             self._attackTime = 0
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime

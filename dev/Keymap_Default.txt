@@ -9,5 +9,5 @@ pygame.K_UP : [self._scene.moveForward, 1, False],
 pygame.K_DOWN : [self._scene.moveBackward, 1, False],
 pygame.K_LEFT : [self._scene.moveLeft, 1, False],
 pygame.K_RIGHT : [self._scene.moveRight, 1, False],
-pygame.K_RCTRL : [self._scene.jump, 1, False],
-pygame.K_KP0 : [self._scene.attack, 1, False]})
+pygame.K_p : [self._scene.jump, 1, False],
+pygame.K_m : [self._scene.attack, 1, False]})
