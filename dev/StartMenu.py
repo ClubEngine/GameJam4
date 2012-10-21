@@ -22,17 +22,18 @@ class StartMenu:
 
         self._font = pygame.font.Font('freesansbold.ttf', 20)
 
+        self._logoImg = pygame.image.load("assets/logo.png")
         self._startButtonRect = pygame.Rect(
             self._main._window.get_width()/2-75, 30,
             150, 30
         )
         self._endButtonRect = pygame.Rect(
-            self._main._window.get_width()/2-75, 100,
+            self._main._window.get_width()/2-75, 420,
             150, 30
         )
         # self._splashList = [51]
         # for i in range(51):
-        #     self._splashList.append(
+        #     self._iSplashListist.append(
         #         pygame.image.load("assets/splash/" + str(i).zfill(4) + ".png")
         #     )
 
@@ -62,13 +63,13 @@ class StartMenu:
         )
         startText = self._font.render("Start game", True, Colors.BLACK)
         self._main._window.blit(startText, [self._main._window.get_width()/2-54,35])
-
+        self._main._window.blit(self._logoImg, [(self._main._window.get_width()-512)/2, 135])
         pygame.draw.rect(
             self._main._window, Colors.LIGHT_GREY,
             self._endButtonRect, 0
         )
         quitText = self._font.render("Quit game", True, Colors.BLACK)
-        self._main._window.blit(quitText, [self._main._window.get_width()/2-54,105])
+        self._main._window.blit(quitText, [self._main._window.get_width()/2-54,425])
 
         pygame.display.flip()
 
