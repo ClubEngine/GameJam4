@@ -78,6 +78,7 @@ class Player:
         self._life -= damage
         if self._life < 0:
             self._life = 0
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.DEATH, self._typeName)
 
     def isDead(self):
         return self._life == 0
@@ -135,7 +136,7 @@ class Player:
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
 
-        self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
+        self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0]/2,self._actions[self._attacking][1] - 1)
 
         #Collisions
         if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
@@ -147,7 +148,7 @@ class Player:
 
     def _updateJump(self, elapsedTime):
         self._jumpTime += elapsedTime
-        self._jumpFrameNumber = min((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0] - 1,self._actions["jump"][1] - 1)
+        self._jumpFrameNumber = min(((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0]/2 ) ,self._actions["jump"][1] - 1)
 
         maxJumpTime = self._actions["jump"][0]
         jumpTime = (self._jumpTime - maxJumpTime)
