@@ -78,7 +78,7 @@ class EventListener:
                 if event.key in self._keysMap:
                     self._keysMap[event.key][2] = False;
             elif event.type == pygame.MOUSEBUTTONUP:
-                for mouseEventTuple in itervalues(self._mouseMap):
+                for mouseEventTuple in self._mouseMap.itervalues():
                     if mouseEventTuple[0].collidepoint(event.pos):
                         mouseEventTuple[1]()
                         break
