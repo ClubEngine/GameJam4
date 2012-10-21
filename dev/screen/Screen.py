@@ -17,7 +17,7 @@ class Screen:
         self._grid = Grid(self)
         self._players = pygame.sprite.Group()
         player1 = PlayerSprite('pirate', 0)
-        player2 = PlayerSprite('pirate', 1)
+        player2 = PlayerSprite('ninja', 1)
         self._players.add(player1)
         self._players.add(player2)
         self._shadows = pygame.sprite.Group()

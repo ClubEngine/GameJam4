@@ -10,7 +10,7 @@ decel = 0.002
 class Scene:
 
     def __init__(self, positions):
-        self._players = [ Player("player1", positions[0]), Player("player2", positions[1]) ] 
+        self._players = [ Player("Player 1", positions[0]), Player("Player 2", positions[1]) ] 
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
