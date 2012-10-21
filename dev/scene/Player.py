@@ -88,11 +88,12 @@ class Player:
             self._attackTime = 0
             self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
     
-    def update(self):
+    def update(self, elapsedTime):
+        self._elapsedTime = elapsedTime
         if self._jumping: 
-            self._updateJump(self._elapsedTime)
+            self._updateJump(elapsedTime)
         if self._attacking:
-            self._updateAttack(self._elapsedTime)
+            self._updateAttack(elapsedTime)
 
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
