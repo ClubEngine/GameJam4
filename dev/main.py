@@ -22,6 +22,7 @@ screen = Screen(windowSurfaceObj, scene)
 listener = EventListener(scene)
 
 while True:
+    scene.update()
     listener.listen()
     screen.draw()
     fpsClock.tick(30)
