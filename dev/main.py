@@ -34,9 +34,10 @@ class Main:
 
         # game objects initialization
         self._scene = Scene([ [100, 0, 0], [-100, 0, 0] ])
-        self._screen = Screen(self._window, self._scene)
         self._listener = EventListener(self._scene)
         self._startMenu = StartMenu(self)
+        self._startMenu.draw()
+        self._screen = Screen(self._window, self._scene)
 
         # main object properties initialization
         self.state = GameState.START_MENU
@@ -67,5 +68,5 @@ class Main:
         self.loop = False
 
 # initialization
-m=Main(1000, 480)
+m=Main(960, 480)
 m.start()
