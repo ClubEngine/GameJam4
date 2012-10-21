@@ -1,5 +1,6 @@
 from Player import Player
 from Collision import Collision
+from SoundManager import SoundManager
 
 maxSpeed = 0.001
 acceleration = 0.001
@@ -10,8 +11,9 @@ class Scene:
         self._players = [ Player("player1", positions[0]), Player("player2", positions[1]) ] 
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
+        self._soundManager = SoundManager()
+        self._soundManager.playMusic("fightmusic")
         self._elapsedTime = 0;
-
     def update(self):
         for player in self._players:
             player.update()
@@ -68,4 +70,7 @@ class Scene:
         playerId vaut 1 ou 0
     """
     def getPlayer(self, playerId):
-        return _players[playerId]
+        return self._players[playerId]
+    
+    def introEnd(self):
+        self._soundManager.introEnd()
