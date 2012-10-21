@@ -10,23 +10,11 @@ class Grid:
     def __init__(self, screen):
         self._screen = screen
         self._iColor = 0
+        self._backImg = pygame.image.load("assets/arena/startMenu.png")
 
     def draw(self):
-        for row in xrange(-300, 301, 20):
-            pygame.draw.line(
-                self._screen._window,
-                self.colors[self._iColor],
-                self._screen.calcPos([row, -300, 0]),
-                self._screen.calcPos([row, 300, 0]),
-            )
 
-        for col in xrange(-300, 301, 20):
-            pygame.draw.line(
-                self._screen._window,
-                self.colors[self._iColor],
-                self._screen.calcPos([row, -300, 0]),
-                self._screen.calcPos([row, 300, 0]),
-            )
+        self._screen._window.blit(self._backImg, [0, 0])
 
         # for xOffset in xrange(0, self._window.get_width(), 10):
         #     pygame.draw.line(self._window, self.colors[self._iColor], 

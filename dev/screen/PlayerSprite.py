@@ -35,26 +35,22 @@ class PlayerSprite(pygame.sprite.Sprite):
         #Image number calculation depending the player angle
         position = screen.calcPos(p.position())
         direction = screen.calcVec(p.direction())
-        #print "{} + {}-{}".format(self._playerId, position, direction)
-        #print "{} + {}-{}".format(self._playerId, p.position(), p.direction())
         angle = degrees(atan2(float(-direction[1]), float(direction[0]))) + 180
         imageNbAngle = int(angle) / 10
 
         #Image update
         if p.isAttacking():
-            #self.image = self._meleeAttackList[imageNbAngle][p.getAttackFrameNumber()]
-            self.image = self._meleeAttackList[imageNbAngle][0]
+            self.image = self._meleeAttackList[imageNbAngle][p.getAttackFrameNumber()]
         elif p.isJumping():
-            #self.image = self._jumpList[imageNbAngle][p.getJumpFrameNumber()]
-            self.image = self._jumpList[imageNbAngle][7]
+            self.image = self._jumpList[imageNbAngle][p.getJumpFrameNumber()]
         else:
             self.image = self._movementSpritesList[imageNbAngle]
 
         #Position update
         self.rect = self.image.get_rect()
-        #pos = self._screen.calcPos(position)
         self.rect.x = position[0]-75
         self.rect.y = position[1]-85
     
     def getID(self):
         return self._playerId
+

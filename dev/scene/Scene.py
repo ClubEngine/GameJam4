@@ -10,7 +10,7 @@ deceleration = 0.002
 class Scene:
 
     def __init__(self, positions):
-        self._players = [ Player("Player 1", positions[0]), Player("Player 2", positions[1]) ] 
+        self._players = [ Player("player1", positions[0], self), Player("player2", positions[1], self) ] 
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
@@ -101,17 +101,21 @@ class Scene:
 
     def jump(self, playerIndex, elapsedTime):
         self._players[playerIndex].jump(elapsedTime)
-        self._soundManager.playSoundFromEvent(playerIndex, SoundManager.JUMP)
 
     def attack(self, playerIndex, elapsedTime):
-        self._players[playerIndex].attack(elapsedTime) 
-        self._soundManager.playSoundFromEvent(playerIndex, SoundManager.ATTACK)
+        self._players[playerIndex].attack(elapsedTime)
 
-    """ retourne le joueur playerId.
-        playerId vaut 0 ou 1
-    """
     def getPlayer(self, playerId):
+        """ retourne le joueur playerId.
+            playerId vaut 0 ou 1
+        """
         return self._players[playerId]
+
+    def getCollision(self):
+        return self._collision
     
     def introEnd(self):
         self._soundManager.introEnd()
+    
+    def getSoundManager(self):
+        return self._soundManager;
