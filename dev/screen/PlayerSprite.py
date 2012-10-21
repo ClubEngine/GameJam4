@@ -39,7 +39,7 @@ class PlayerSprite(pygame.sprite.Sprite):
         #print "{} + {}-{}".format(self._playerId, p.position(), p.direction())
         angle = degrees(atan2(float(-direction[1]), float(direction[0]))) + 180
         imageNbAngle = int(angle) / 10
-        
+
         #Image update
         if p.isAttacking():
             #self.image = self._meleeAttackList[imageNbAngle][p.getAttackFrameNumber()]
@@ -54,4 +54,6 @@ class PlayerSprite(pygame.sprite.Sprite):
         #pos = self._screen.calcPos(position)
         self.rect.x = position[0]-75
         self.rect.y = position[1]-85
-
+    
+    def getID(self):
+        return self._playerId
