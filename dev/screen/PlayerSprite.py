@@ -16,10 +16,10 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.update(pos, dir)
         
     def update(self, pos, dir):
-        # imageNb = angle / 10;
-        # self.image = self._spritesList[imageNb]
-        # self.rect = self.image.get_rect()
-        # pos = self._screen.calcPos((x,y))
-        # self.rect.x = pos[0]-75
-        # self.rect.y = pos[1]-85
-        pass
+        self.image = self._spritesList[0]
+        imageNb = 0 / 10;
+        self.image = self._spritesList[imageNb]
+        self.rect = self.image.get_rect()
+        pos = self._screen.calcPos(pos)
+        self.rect.x = pos[0]-75
+        self.rect.y = pos[1]-85
