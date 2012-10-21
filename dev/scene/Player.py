@@ -14,7 +14,9 @@ class Player:
         self._jumping = False
         self._attackTime = 0
         self._attacking = False
-        self._clock = pygame.time.Clock()
+        # speed[0] : forward/backward ; speed[1] : side
+        self._speed = [ 0, 0 ]
+        self._elapsedTime = 0
 
     def name(self):
         return name;
@@ -27,6 +29,13 @@ class Player:
         self._pos[1] = position[1]
         self._pos[2] = position[2]
 
+    def speed(self):
+        return self._speed
+
+    def setSpeed(self, speed):
+        self._speed[0] = speed[0]
+        self._speed[1] = speed[1]
+
     def hurt(self, damage):
         self._life -= damage
         if self._life < 0:
@@ -35,31 +44,32 @@ class Player:
     def isDead(self):
         return self._life == 0
 
-    def jump(self):
+    def jump(self, elapsedTime):
+        self._elapsedTime = elapsedTime
         if not self._jumping:
             self._jumpTime = 0 
             self._jumping = True
 
-    def attack(self):
+    def attack(self, elapsedTime):
+        self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attacking = True
             self._attackTime = 0
     
     def update(self):
-        timeElapsed = self._clock.tick(30)
         if self._jumping: 
-            _updateJump(timeElapsed)
+            _updateJump(self._elapsedTime)
         if self._attacking:
-            _updateAttack(timeElapsed)
+            _updateAttack(self._elapsedTime)
 
-    def _updateAttack(self, timeElapsed):
-        self._attackTime += timeElapsed
+    def _updateAttack(self, elapsedTime):
+        self._attackTime += elapsedTime
         if self._attackTime > maxAttackTime:
             self._attacking = False
         # Gerer collisions
 
-    def _updateJump(self, timeElapsed):
-        self._jumpTime += timeElapsed
+    def _updateJump(self, elapsedTime):
+        self._jumpTime += elapsedTime
         jumpTime = (self._jumpTime - maxJumpTime) 
         self._pos[2] = jumpDelta * (-(jumpTime * jumpTime) + maxJumpTime * maxJumpTime)
         if self._jumpTime >= 2*maxJumpTime:
