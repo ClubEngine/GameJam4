@@ -64,4 +64,6 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = position[0]-75
         self.rect.y = position[1]-85
+        print 'Player'
+        print self.rect
     
