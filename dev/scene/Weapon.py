@@ -9,11 +9,12 @@ Damage = 30
 
 class Weapon:
 
-    def __init__(self, scene, playerId):
+    def __init__(self, scene, playerId, name):
 
         self._scene = scene
         self._pos = [0,0,0]
         self._playerId = playerId
+        self._name = name
         self._active = False
         self._TTL = 0
         self._direction = [0,0,0]
@@ -28,6 +29,9 @@ class Weapon:
 
     def active(self):
         return self._active
+
+    def name(self):
+        return self._name
 
     def update (self, Speed_weapon, elapsedTime):
         if self._active == False:

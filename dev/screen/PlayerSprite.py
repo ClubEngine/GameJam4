@@ -51,7 +51,10 @@ class PlayerSprite(pygame.sprite.Sprite):
 
         #Image update
         if self._player.isAttacking():
-            self.image = self._meleeAttackList[imageNbAngle][self._player.getAttackFrameNumber()]
+            if(self._player.getAction() == "melee_attack"):
+                self.image = self._meleeAttackList[imageNbAngle][self._player.getAttackFrameNumber()]
+            else:
+                self.image = self._distantAttackList[imageNbAngle][self._player.getAttackFrameNumber()]
         elif self._player.isJumping():
             self.image = self._jumpList[imageNbAngle][self._player.getJumpFrameNumber()]
         else:
