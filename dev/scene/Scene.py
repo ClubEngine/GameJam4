@@ -70,7 +70,7 @@ class Scene:
         playerId vaut 1 ou 0
     """
     def getPlayer(self, playerId):
-        return _players[playerId]
+        return self._players[playerId]
     
     def introEnd(self):
         self._soundManager.introEnd()

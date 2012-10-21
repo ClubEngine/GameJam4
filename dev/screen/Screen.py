@@ -14,8 +14,8 @@ class Screen:
         self._hud = HUD(self)
         self._grid = Grid(self)
         self._players = pygame.sprite.Group()
-        self._players.add(PlayerSprite('pirate', self))
-        self._players.add(PlayerSprite('pirate', self))
+        self._players.add(PlayerSprite('pirate', 0))
+        self._players.add(PlayerSprite('pirate', 1))
 
     def calcPos(self, vector):
         return (
@@ -30,15 +30,23 @@ class Screen:
         )
 
     def update(self):
-        p0 = self._scene.getPlayer(0)
-        p1 = self._scene.getPlayer(1)
-        
-        self._players.update(
-            [self.calcPos(p0.position()), self.calcPos(p1.position())],
-            [self.calcVec(p0.direction()), self.calcVec(p1.direction())]
-        )
+        pass
+#p0 = self._scene.getPlayer(0)
+        #p1 = self._scene.getPlayer(1)
+        #
+        #i = 0;
+        #for sprite in self._players.sprites:
+        #    p = self._scene.getPlayer(i)
+        #    sprite.update(self.calcPos(p.position()),
+        #                  self.calcVec(p0.direction()))
+        #    i += 1
+#                [self.calcPos(p0.position()), self.calcPos(p1.position())],
+#            [self.calcVec(p0.direction()), self.calcVec(p1.direction())]
+#        )
 
     def draw(self):
+        self._players.update(self._scene, self)
+
         self._window.fill(pygame.Color(255,255,255))    
 
         self._grid.draw()
