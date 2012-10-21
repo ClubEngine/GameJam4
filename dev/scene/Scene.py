@@ -3,7 +3,9 @@ from Collision import Collision
 from SoundManager import SoundManager
 
 maxSpeed = 0.8
-acceleration = 0.001
+acceleration = 0.0015
+epsilon = 0.03
+decel = 0.002
 
 class Scene:
 
@@ -14,20 +16,32 @@ class Scene:
         self._soundManager = SoundManager()
         self._soundManager.playMusic("fightmusic")
         self._elapsedTime = 0;
+
     def update(self):
         for player in self._players:
             player.update()
-        for playerIndex in range(0, 1):
+        for playerIndex in range(0, 2):
             self._collision.moveForward(playerIndex, self._players[playerIndex].speed()[0] * self._elapsedTime)
             self._collision.moveSide(playerIndex, self._players[playerIndex].speed()[1] * self._elapsedTime)
 
     def newFrame(self, elapsedTime):
-        for playerIndex in range(0, 1):
+        for playerIndex in range(0, 2):
             player = self._players[playerIndex]
             if not self._eventOccured[playerIndex]:
-                for speed in player.speed():
-                    if speed != 0:
-                        speed -= acceleration * elapsedTime
+                for i in range(0,2):
+                    print i
+                    speed = player.speed()[i]
+                    print "speed", speed
+                    if speed < epsilon and speed > -epsilon:
+                        speed = 0
+                    else:
+                        if speed > 0:
+                            speed -= (acceleration + decel) * elapsedTime
+                        else:
+                            speed += (acceleration + decel) * elapsedTime 
+                    player.setSpeed(speed, i)
+
+                
         self._eventOccured = [ False, False ]
         self._elapsedTime = elapsedTime
 
