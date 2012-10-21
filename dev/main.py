@@ -39,7 +39,7 @@ class Main:
         self._listener = EventListener(self._scene, self)
         self._startMenu = StartMenu(self)
         self._startMenu.drawSplashScreen() # just before loading
-        self._screen = Screen(self._window, self._scene)
+        self._screen = Screen(self._window, self._scene, self._startMenu)
         self._startMenu.draw()
 
 

@@ -9,7 +9,7 @@ il contient un tableau avec tout ses sprites
 """
 class PlayerSprite(pygame.sprite.Sprite):
     SPRITES_PATH = "assets/img/"
-    def __init__(self, playerName, playerId, pos = (0, 0), direction = (0, 0)):
+    def __init__(self, playerName, playerId, menu, pos = (0, 0), direction = (0, 0)):
         pygame.sprite.Sprite.__init__(self)
         self._movementSpritesList = []
         self._jumpList = [[] for i in range(36)]
@@ -20,7 +20,8 @@ class PlayerSprite(pygame.sprite.Sprite):
         #Chargement des textures !!!
         for i in range(0, 360, 10):
             sprite = pygame.image.load(self.SPRITES_PATH + playerName + "-pos-rot/" + str(i).zfill(4) + ".png")
-            self._movementSpritesList.append(sprite) 
+            self._movementSpritesList.append(sprite)
+            menu.drawSplashScreen()
             for j in range(9):
                 sprite = pygame.image.load(self.SPRITES_PATH + playerName + "-attaque-melee/" + str(i) + "deg/" + str(j) + ".png")
                 self._meleeAttackList[i/10].append(sprite)
@@ -35,26 +36,22 @@ class PlayerSprite(pygame.sprite.Sprite):
         #Image number calculation depending the player angle
         position = screen.calcPos(p.position())
         direction = screen.calcVec(p.direction())
-        #print "{} + {}-{}".format(self._playerId, position, direction)
-        #print "{} + {}-{}".format(self._playerId, p.position(), p.direction())
         angle = degrees(atan2(float(-direction[1]), float(direction[0]))) + 180
         imageNbAngle = int(angle) / 10
 
         #Image update
         if p.isAttacking():
             self.image = self._meleeAttackList[imageNbAngle][p.getAttackFrameNumber()]
-            #self.image = self._meleeAttackList[imageNbAngle][0]
         elif p.isJumping():
             self.image = self._jumpList[imageNbAngle][p.getJumpFrameNumber()]
-            #self.image = self._jumpList[imageNbAngle][7]
         else:
             self.image = self._movementSpritesList[imageNbAngle]
 
         #Position update
         self.rect = self.image.get_rect()
-        #pos = self._screen.calcPos(position)
         self.rect.x = position[0]-75
         self.rect.y = position[1]-85
     
     def getID(self):
         return self._playerId
+
