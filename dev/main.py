@@ -36,8 +36,9 @@ class Main:
         self._scene = Scene([ [100, 0, 0], [-100, 0, 0] ])
         self._listener = EventListener(self._scene)
         self._startMenu = StartMenu(self)
-        self._startMenu.draw()
+        self._startMenu.drawSplashScreen() # just before loading
         self._screen = Screen(self._window, self._scene)
+        self._startMenu.draw()
 
         # main object properties initialization
         self.state = GameState.START_MENU
