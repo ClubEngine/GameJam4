@@ -64,7 +64,6 @@ class Screen:
 
         self._grid.draw()
         self._shadows.draw(self._window)
-        self._weaponGroup.draw(self._window)
 
         if self.calcPosZ(self._scene.getPlayer(0).position()) > self.calcPosZ(self._scene.getPlayer(1).position()):
             self._playerG1.draw(self._window);
@@ -72,6 +71,8 @@ class Screen:
         else:
             self._playerG2.draw(self._window);
             self._playerG1.draw(self._window);
+
+        self._weaponGroup.draw(self._window)
 
         self._grid.afterDraw()
 
