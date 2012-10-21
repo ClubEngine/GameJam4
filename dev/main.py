@@ -13,7 +13,7 @@ from scene import SoundManager
 class Main:
     """ Main class for the game. """
 
-    def __init__(self, width, height, caption="Street Pirates Vs. Ninja"):
+    def __init__(self, width, height, caption="Street Pirates Vs. Ninjas"):
         """
         Constructor.
         @param  self     [Main]     itself  
