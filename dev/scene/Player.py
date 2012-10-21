@@ -9,14 +9,15 @@ class Player:
     """
     _actions = dict()
 
-    def __init__(self, name, position, scene):
+    def __init__(self, name, typeName, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
-                "melee_attack": [500,9,10],
+                "melee_attack": [200,9,10],
                 "ranged_attack" : [1000,9,10],
                 "jump" : [350,9]})
 
         self._name = name
+        self._typeName = typeName
         self._scene = scene
         self._life = 100
         self._pos = position
@@ -32,7 +33,10 @@ class Player:
         self._jumpFrameNumber = 0
 
     def name(self):
-        return self._name;
+        return self._name
+
+    def typeName(self):
+        return self._typeName
 
     def position(self):
         return self._pos
@@ -88,11 +92,12 @@ class Player:
             self._attackTime = 0
             self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
     
-    def update(self):
+    def update(self, elapsedTime):
+        self._elapsedTime = elapsedTime
         if self._jumping: 
-            self._updateJump(self._elapsedTime)
+            self._updateJump(elapsedTime)
         if self._attacking:
-            self._updateAttack(self._elapsedTime)
+            self._updateAttack(elapsedTime)
 
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
