@@ -160,7 +160,8 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        return
+        self._deathFrameNumber = min(self._deathFrameNumber + 1, 30)
+        
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
