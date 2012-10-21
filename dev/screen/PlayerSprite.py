@@ -1,3 +1,4 @@
+import pygame
 """
 Player Sprite s'occupe de l'affichage d'un player
 il contient un tableau avec tout ses sprites
