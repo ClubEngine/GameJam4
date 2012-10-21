@@ -62,8 +62,11 @@ class Scene:
 
     def jump(self, playerIndex, elapsedTime):
         self._players[playerIndex].jump(elapsedTime)
+        self._soundManager.playSoundFromEvent(playerIndex, SoundManager.JUMP)
+
     def attack(self, playerIndex, elapsedTime):
         self._players[playerIndex].attack(elapsedTime) 
+        self._soundManager.playSoundFromEvent(playerIndex, SoundManager.ATTACK)
 
     """ retourne le joueur playerId.
         playerId vaut 0 ou 1
