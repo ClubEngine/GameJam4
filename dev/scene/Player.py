@@ -138,7 +138,8 @@ class Player:
 
     def _updateJump(self, elapsedTime):
         self._jumpTime += elapsedTime
-        self._jumpFrameNumber = min((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0] - 1,self._actions["jump"][1] - 1)
+        #self._jumpFrameNumber = min((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0] - 1,self._actions["jump"][1] - 1)
+        self._jumpFrameNumber += 1
 
         maxJumpTime = self._actions["jump"][0]
         jumpTime = (self._jumpTime - maxJumpTime)
