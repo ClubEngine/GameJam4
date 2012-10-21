@@ -16,10 +16,12 @@ class Scene:
             player.update()
 
     def moveForward(self, playerIndex):
+        print 'move forward'
         self._collision.moveForward(playerIndex, distDelta) 
 
 
     def moveBackward(self, playerIndex):
+        print 'move backward'
         self._collision.moveForward(playerIndex, -distDelta) 
 
     def moveRight(self, playerIndex):
@@ -31,5 +33,7 @@ class Scene:
 
     def jump(self, playerIndex):
         self._players[playerIndex].jump()
+        print 'jump'
     def attack(self, playerIndex):
+        print 'attack'
         self._players[playerIndex].attack() 
