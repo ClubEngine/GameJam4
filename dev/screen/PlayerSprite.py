@@ -24,7 +24,7 @@ class PlayerSprite(pygame.sprite.Sprite):
         direction = screen.calcVec(p.direction())
         #print "{} + {}-{}".format(self._playerId, position, direction)
         #print "{} + {}-{}".format(self._playerId, p.position(), p.direction())
-        angle = degrees(atan2(float(direction[1]), float(direction[0]))) + 180
+        angle = degrees(atan2(float(-direction[1]), float(direction[0]))) + 180
         imageNb = int(angle) / 10
         self.image = self._spritesList[imageNb]
         self.rect = self.image.get_rect()
