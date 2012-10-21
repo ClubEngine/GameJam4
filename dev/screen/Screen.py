@@ -2,6 +2,7 @@ from HUD import HUD
 from Grid import Grid
 from PlayerSprite import PlayerSprite
 from ShadowSprite import ShadowSprite
+from WeaponSprite import WeaponSprite
 import pygame
 
 class Screen:
@@ -27,6 +28,9 @@ class Screen:
         self._shadows = pygame.sprite.Group()
         self._shadows.add(ShadowSprite(scene.getPlayer(0)))
         self._shadows.add(ShadowSprite(scene.getPlayer(1)))
+        self._weaponGroup = pygame.sprite.Group()
+        self._weaponList = [WeaponSprite(scene.getPlayer(0).weapon()),
+                WeaponSprite(scene.getPlayer(1).weapon())]
 
     def calcPos(self, vector):
         return (
@@ -50,8 +54,17 @@ class Screen:
         self._shadows.update(self._scene, self)
         self._window.fill(pygame.Color(255,255,255))    
 
+        for w in self._weaponList:
+            if w.weapon().active():
+                self._weaponGroup.add(w)
+            else:
+                self._weaponGroup.remove(w)
+
+        self._weaponGroup.update()
+
         self._grid.draw()
         self._shadows.draw(self._window)
+        self._weaponGroup.draw(self._window)
 
         if self.calcPosZ(self._scene.getPlayer(0).position()) > self.calcPosZ(self._scene.getPlayer(1).position()):
             self._playerG1.draw(self._window);

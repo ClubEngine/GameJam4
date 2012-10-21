@@ -9,11 +9,12 @@ Damage = 30
 
 class Weapon:
 
-    def __init__(self, scene, playerId):
+    def __init__(self, scene, playerId, name):
 
         self._scene = scene
         self._pos = [0,0,0]
         self._playerId = playerId
+        self._name = name
         self._active = False
         self._TTL = 0
         self._direction = [0,0,0]
@@ -29,8 +30,11 @@ class Weapon:
     def active(self):
         return self._active
 
+    def name(self):
+        return self._name
+
     def update (self, Speed_weapon, elapsedTime):
-        if active == False:
+        if self._active == False:
             return
         self._pos[0] += Speed_weapon * elapsedTime * self._direction[0]
         self._pos[1] += Speed_weapon * elapsedTime * self._direction[1]
@@ -44,4 +48,5 @@ class Weapon:
     def launch (self):
         self._TTL = MaxTTL
         self._pos = self._scene.getPlayer(self._playerId).position()
-        self._direction = self._scene.getCollision().getdirection(self._playerId)
+        self._direction = self._scene.getCollision().getDirection(self._playerId)
+        self._active = True
