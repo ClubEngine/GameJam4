@@ -11,6 +11,7 @@ class Screen:
     def __init__(self, window, scene):
         self._window = window
         self._scene = scene
+        self._hud = HUD(self)
         self._grid = Grid(self)
         self._players = pygame.sprite.RenderPlain()
         self._players.add(PlayerSprite('pirate', self))
@@ -27,6 +28,7 @@ class Screen:
 
         self._grid.draw()
         self._players.draw(self._window)
+        self._hud.draw()
 
         pygame.display.flip()
         

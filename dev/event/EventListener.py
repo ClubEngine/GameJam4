@@ -2,9 +2,16 @@ import pygame, sys
 from pygame.locals import *
 
 class EventListener:
+    """ Classe gerant les evenements. """
+
     def __init__(self, scene):
+        """ 
+        Constructor
+        @param  EventListener   self
+        @param  Scene           the scene managing the players.
+        """
         self._scene = scene
-        self._clock = pygame.time.Clock
+        self._clock = pygame.time.Clock()
         self._keysMap = dict({
                 pygame.K_z : [self._scene.moveForward, 0, False],
                 pygame.K_s : [self._scene.moveBackward, 0, False],
@@ -20,7 +27,10 @@ class EventListener:
                 pygame.K_KP0 : [self._scene.attack, 1, False]})
 
     def listen(self):
-        self._clock.tick()
+        """
+        Listen for events and call the scene's methods.
+        """
+        elapsedTime = self._clock.tick()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -39,11 +49,14 @@ class EventListener:
             if isKeyDown:
                 method = self._keysMap[actionKey][0]
                 playerIndex = self._keysMap[actionKey][1]
-                method(playerIndex, self._clock.get_time())
+                method(playerIndex, elapsedTime)
 
-        self._scene.newFrame(self._clock.get_time())
+        self._scene.newFrame(elapsedTime)
 
     def _quit(self):
+        """
+        Quit the program.
+        """
         pygame.quit()
         sys.exit()
 
