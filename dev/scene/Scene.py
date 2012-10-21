@@ -18,7 +18,7 @@ class Scene:
             self._collision.moveForward(playerIndex, self._players[playerIndex].speed()[0])
             self._collision.moveSide(playerIndex, self._players[playerIndex].speed()[1])
 
-    def newFrame(self):
+    def newFrame(self, elapsedTime):
         for playerIndex in range(0, 1):
             player = self._players[playerIndex]
             if not self._eventOccured[playerIndex]:
@@ -61,3 +61,9 @@ class Scene:
         self._players[playerIndex].jump(elapsedTime)
     def attack(self, playerIndex, elapsedTime):
         self._players[playerIndex].attack(elapsedTime) 
+
+    """ retourne le joueur playerId.
+        playerId vaut 1 ou 0
+    """
+    def getPlayer(self, playerId):
+        return _players[playerId]

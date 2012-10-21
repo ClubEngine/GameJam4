@@ -10,6 +10,7 @@ class Player:
         self._name = name
         self._life = 100
         self._pos = position
+        self._dir = [0, 0, 0]
         self._jumpTime = 0
         self._jumping = False
         self._attackTime = 0
@@ -35,6 +36,14 @@ class Player:
     def setSpeed(self, speed):
         self._speed[0] = speed[0]
         self._speed[1] = speed[1]
+
+    def direction(self):
+        return self._dir
+
+    def setDirection(self, direction):
+        self._dir[0] = direction[0]
+        self._dir[1] = direction[1]
+        self._dir[2] = direction[2]        
 
     def hurt(self, damage):
         self._life -= damage
