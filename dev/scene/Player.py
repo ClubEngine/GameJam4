@@ -1,4 +1,5 @@
 import pygame 
+from SoundManager import SoundManager
 
 class Player:
 
@@ -78,12 +79,14 @@ class Player:
         if not self._jumping:
             self._jumpTime = 0 
             self._jumping = True
-
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP)
+            
     def attack(self, elapsedTime):
         self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attacking = "melee_attack"
             self._attackTime = 0
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
     
     def update(self):
         if self._jumping: 
