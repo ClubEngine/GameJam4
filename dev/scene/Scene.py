@@ -1,4 +1,5 @@
 from Player import Player
+from Collision import Collision
 
 distDelta = 0.1
 
@@ -8,7 +9,7 @@ class Scene:
 
     def __init__(self):
         self._players = [ Player("player1"), Player("player2") ] 
-        self._collision = Collision(players[0], players[1])
+        self._collision = Collision(self._players[0], self._players[1])
 
     def update(self):
         for player in self._players:
