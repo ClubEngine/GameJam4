@@ -27,6 +27,8 @@ class Main:
         # pygame objects initialization
         pygame.init()
         
+        icon = pygame.image.load("assets/Icone.png")
+        pygame.display.set_icon(icon)
         self._soundManager = SoundManager()
         self._soundManager.playMenuMusic()
         
@@ -35,6 +37,7 @@ class Main:
             (self.width, self.height),
             pygame.DOUBLEBUF
         )
+
         pygame.display.set_caption(caption)
 
         pygame.mouse.set_cursor(*pygame.cursors.tri_left)
