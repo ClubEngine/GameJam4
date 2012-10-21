@@ -32,7 +32,7 @@ class StartMenu:
         )
         # self._splashList = [51]
         # for i in range(51):
-        #     self._splashList.append(
+        #     self._iSplashListist.append(
         #         pygame.image.load("assets/splash/" + str(i).zfill(4) + ".png")
         #     )
 
