@@ -13,7 +13,7 @@ class Screen:
         self._scene = scene
         self._hud = HUD(self)
         self._grid = Grid(self)
-        self._players = pygame.sprite.RenderPlain()
+        self._players = pygame.sprite.Group()
         self._players.add(PlayerSprite('pirate', self))
         self._players.add(PlayerSprite('pirate', self))
 
@@ -32,13 +32,11 @@ class Screen:
     def update(self):
         p0 = self._scene.getPlayer(0)
         p1 = self._scene.getPlayer(1)
-        dir0 = self.calcVec(p0.direction())
-        dir1 = self.calcVec(p1.direction())
-        pos0 = self.calcPos(p0.position())
-        pos1 = self.calcPos(p1.position())
         
-#        self._players[0].update();
-#        self._players[1].update();
+        self._players.update(
+            [self.calcPos(p0.position()), self.calcPos(p1.position())],
+            [self.calcVec(p0.direction()), self.calcVec(p1.direction())]
+        )
 
     def draw(self):
         self._window.fill(pygame.Color(255,255,255))    
