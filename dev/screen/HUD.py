@@ -3,4 +3,5 @@ class HUD:
         self._screen = screen
 
     def draw(self):
-        pass
+        text = self._screen._font.render("WTF bitches", True, (0, 0, 0))
+        self._screen._window.blit(text, [250,250])

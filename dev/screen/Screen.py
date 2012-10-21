@@ -29,6 +29,7 @@ class Screen:
 
         self._grid.draw()
         self._players.draw(self._window)
+        self._hud.draw()
 
         pygame.display.flip()
         
