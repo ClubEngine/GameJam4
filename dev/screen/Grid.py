@@ -16,16 +16,16 @@ class Grid:
             pygame.draw.line(
                 self._screen._window,
                 self.colors[self._iColor],
-                self._screen.calcPos((row, -300)),
-                self._screen.calcPos((row, 300))
+                self._screen.calcPos([row, -300, 0]),
+                self._screen.calcPos([row, 300, 0]),
             )
 
         for col in xrange(-300, 301, 20):
             pygame.draw.line(
                 self._screen._window,
                 self.colors[self._iColor],
-                self._screen.calcPos((-300, col)),
-                self._screen.calcPos((300, col))
+                self._screen.calcPos([row, -300, 0]),
+                self._screen.calcPos([row, 300, 0]),
             )
 
         # for xOffset in xrange(0, self._window.get_width(), 10):
