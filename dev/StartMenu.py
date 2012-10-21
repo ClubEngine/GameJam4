@@ -87,11 +87,9 @@ class StartMenu:
         Handler for the click on the "start game" button.
         @param  self [StartMenu]    itself
         """
-        self._main.state = GameState.IN_GAME
+        self._main.changeState(GameState.IN_GAME)
         self._main._listener.removeMouseEvent(self._startButtonListener)
         self._main._listener.removeMouseEvent(self._endButtonListener)
-        self._main.getSoundManager().stop()
-        self._main.getSoundManager().playMusic("fightmusic")
 
     def quitGame(self):
         """
