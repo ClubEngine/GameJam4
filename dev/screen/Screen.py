@@ -8,7 +8,7 @@ class Screen:
 
     u = (2./3, -1./3.5)
     v = (-2./3, -1./3.5)
-    w = (0, -10)
+    w = (0, -15)
 
     def __init__(self, window, scene):
         self._window = window
