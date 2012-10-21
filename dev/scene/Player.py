@@ -91,7 +91,7 @@ class Player:
         if not self._attacking:
             self._attacking = "melee_attack"
             self._attackTime = 0
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK, self._typeName)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime

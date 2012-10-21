@@ -4,7 +4,6 @@ import threading
 class SoundManager:
 
     INTRO_END = pygame.USEREVENT + 1
-    ATTACK = 1
     JUMP   = 2
     MOVE   = 3
     DISTANT_ATTACK  = 4
@@ -35,7 +34,7 @@ class SoundManager:
         if(event == self.MELEE_ATTACK):
             sound = pygame.mixer.Sound("sound/punch.ogg")
         elif(event == self.DISTANT_ATTACK):
-            sound = None
+            sound = pygame.mixer.Sound("sound/punch.ogg")
         elif(event == self.JUMP):
             sound = None
         elif(event == self.MOVE):
