@@ -76,9 +76,9 @@ class Player:
     
     def update(self):
         if self._jumping: 
-            _updateJump(self._elapsedTime)
+            self._updateJump(self._elapsedTime)
         if self._attacking:
-            _updateAttack(self._elapsedTime)
+            self._updateAttack(self._elapsedTime)
 
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
