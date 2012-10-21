@@ -8,6 +8,7 @@ from event import EventListener
 from scene import Scene
 from StartMenu import StartMenu
 from GameState import GameState
+from scene import SoundManager
 
 class Main:
     """ Main class for the game. """
@@ -25,6 +26,10 @@ class Main:
 
         # pygame objects initialization
         pygame.init()
+        
+        self._soundManager = SoundManager()
+        self._soundManager.playMenuMusic()
+        
         self._fpsClock = pygame.time.Clock()
         self._window = pygame.display.set_mode(
             (self.width, self.height),
@@ -69,7 +74,10 @@ class Main:
         @param  self     [Main]     itself
         """
         self.loop = False
-
+    
+    def getSoundManager(self):
+        return self._soundManager
+        
 # initialization
 m=Main(960, 480)
 m.start()
