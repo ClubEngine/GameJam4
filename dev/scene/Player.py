@@ -9,14 +9,15 @@ class Player:
     """
     _actions = dict()
 
-    def __init__(self, name, position, scene):
+    def __init__(self, name, typeName, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
-                "melee_attack": [500,9,10],
-                "ranged_attack" : [1000,9,10],
+                "melee_attack": [200,9,1],
+                "ranged_attack" : [1000,9,1],
                 "jump" : [350,9]})
 
         self._name = name
+        self._typeName = typeName
         self._scene = scene
         self._life = 100
         self._pos = position
@@ -30,9 +31,13 @@ class Player:
         self._elapsedTime = 0
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
-
+        self._deathFrameNumber = 0
+        
     def name(self):
-        return self._name;
+        return self._name
+
+    def typeName(self):
+        return self._typeName
 
     def position(self):
         return self._pos
@@ -61,6 +66,7 @@ class Player:
         self._dir[2] = direction[2]        
 
     def hurt(self, damage):
+        self._scene.getSoundManager().playSoundFromEvent(SoundManager.HURT, self._typeName)
         self._life -= damage
         if self._life < 0:
             self._life = 0
@@ -79,25 +85,33 @@ class Player:
         if not self._jumping:
             self._jumpTime = 0 
             self._jumping = True
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP, self._typeName)
             
     def attack(self, elapsedTime):
         self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attacking = "melee_attack"
             self._attackTime = 0
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
     
-    def update(self):
-        if self._jumping: 
-            self._updateJump(self._elapsedTime)
+    def update(self, elapsedTime):
+        self._elapsedTime = elapsedTime
+        
         if self._attacking:
-            self._updateAttack(self._elapsedTime)
-
+            self._updateAttack(elapsedTime)
+        if self._jumping: 
+            self._updateJump(elapsedTime)
+        if self.isDead():
+            self._updateDeath(elapsedTime)
+            
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
+    
     def getJumpFrameNumber(self):
         return self._jumpFrameNumber
+
+    def getDeathFrameNumber(self):
+        return self._deathFrameNumber;
 
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
@@ -105,7 +119,7 @@ class Player:
         self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
 
         #Collisions
-        if self._scene.getCollision().getDistance() < self._attackFrameNumber and self._scene.getCollision.getCollisionHorizontale() < 1 :
+        if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
             self.hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
@@ -117,7 +131,7 @@ class Player:
         self._jumpFrameNumber = min((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0] - 1,self._actions["jump"][1] - 1)
 
         maxJumpTime = self._actions["jump"][0]
-        jumpTime = (self._jumpTime - maxJumpTime) 
+        jumpTime = (self._jumpTime - maxJumpTime)
         jumpDelta = 2.0 / (maxJumpTime * maxJumpTime)
         self._pos[2] = jumpDelta * (-(jumpTime * jumpTime) + maxJumpTime * maxJumpTime)
         if self._jumpTime >= 2*maxJumpTime:
@@ -125,6 +139,8 @@ class Player:
            self._jumping = False
            self._jumpTime = 0
 
+    def _updateDeath(self, elapsedTime):
+        return
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
