@@ -65,7 +65,7 @@ class Scene:
         self._players[playerIndex].attack(elapsedTime) 
 
     """ retourne le joueur playerId.
-        playerId vaut 1 ou 0
+        playerId vaut 0 ou 1
     """
     def getPlayer(self, playerId):
         return _players[playerId]
