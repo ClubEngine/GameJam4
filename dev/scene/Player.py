@@ -33,7 +33,6 @@ class Player:
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
         self._deathFrameNumber = 0
-        self._deathTime = 0
         self._weapon = Weapon(scene, playerId)
         
     def name(self):
@@ -100,6 +99,7 @@ class Player:
             else :
                 self._attacking = "ranged_attack"
                 self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
+                self._weapon.launch()
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime
@@ -150,8 +150,7 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        self._deathFrameNumber =  min(self._deathFrameNumber+1, 30)
-        
+        return
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
