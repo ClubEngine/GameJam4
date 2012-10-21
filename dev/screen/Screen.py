@@ -1,12 +1,14 @@
 from HUD import HUD
 from Grid import Grid
 from PlayerSprite import PlayerSprite
+from ShadowSprite import ShadowSprite
 import pygame
 
 class Screen:
 
     u = (2./3, -1./3.5)
     v = (-2./3, -1./3.5)
+    w = (0, -10)
 
     def __init__(self, window, scene):
         self._window = window
@@ -14,13 +16,20 @@ class Screen:
         self._hud = HUD(self)
         self._grid = Grid(self)
         self._players = pygame.sprite.Group()
-        self._players.add(PlayerSprite('pirate', 0))
-        self._players.add(PlayerSprite('pirate', 1))
-
+        player1 = PlayerSprite('pirate', 0)
+        player2 = PlayerSprite('pirate', 1)
+        self._players.add(player1)
+        self._players.add(player2)
+        self._shadows = pygame.sprite.Group()
+        self._shadows.add(ShadowSprite(player1))
+        self._shadows.add(ShadowSprite(player2))
+        
     def calcPos(self, vector):
         return (
-            vector[0]*self.u[0] + vector[1]*self.v[0] + self._window.get_width()/2,
-            vector[0]*self.u[1] + vector[1]*self.v[1] + self._window.get_height()/2
+            vector[0]*self.u[0] + vector[1]*self.v[0] + vector[2]*self.w[0] +
+                self._window.get_width()/2,
+            vector[0]*self.u[1] + vector[1]*self.v[1] + vector[2]*self.w[1] +
+                self._window.get_height()/2
         )
 
     def calcVec(self, vector):
@@ -29,27 +38,13 @@ class Screen:
             vector[0]*self.u[1] + vector[1]*self.v[1]
         )
 
-    def update(self):
-        pass
-#p0 = self._scene.getPlayer(0)
-        #p1 = self._scene.getPlayer(1)
-        #
-        #i = 0;
-        #for sprite in self._players.sprites:
-        #    p = self._scene.getPlayer(i)
-        #    sprite.update(self.calcPos(p.position()),
-        #                  self.calcVec(p0.direction()))
-        #    i += 1
-#                [self.calcPos(p0.position()), self.calcPos(p1.position())],
-#            [self.calcVec(p0.direction()), self.calcVec(p1.direction())]
-#        )
-
     def draw(self):
         self._players.update(self._scene, self)
-
+        self._shadows.update(self._scene, self)
         self._window.fill(pygame.Color(255,255,255))    
 
         self._grid.draw()
+        self._shadows.draw(self._window)
         self._players.draw(self._window)
         self._hud.draw()
 
