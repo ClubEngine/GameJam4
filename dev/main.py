@@ -28,7 +28,7 @@ class Main:
         self._fpsClock = pygame.time.Clock()
         self._window = pygame.display.set_mode(
             (self.width, self.height),
-            pygame.DOUBLEBUF
+            pygame.DOUBLEBUF | pygame.FULLSCREEN
         )
         pygame.display.set_caption(caption)
 
