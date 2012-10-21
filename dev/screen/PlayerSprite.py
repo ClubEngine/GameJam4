@@ -58,3 +58,4 @@ class PlayerSprite(pygame.sprite.Sprite):
     
     def getID(self):
         return self._playerId
+
