@@ -13,7 +13,7 @@ class Collision:
 
     def __init__(self, player0, player1):
         self._players = [player0, player1]
-        self.setCollisionProperties(100)
+        self.setCollisionProperties(50)
         self._pos=[[0,0,0], [0,0,0]]
         self._dir=[[0,0,0], [0,0,0]]
         self._length = 0

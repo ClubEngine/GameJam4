@@ -13,7 +13,7 @@ class Player:
         self._actions = dict({
                 "melee_attack": [500,9,10],
                 "ranged_attack" : [1000,9,10],
-                "jump" : [500,9]})
+                "jump" : [350,9]})
 
         self._name = name
         self._scene = scene
