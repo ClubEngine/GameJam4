@@ -10,17 +10,22 @@ class Collision:
         _distanceCollisionPlayers  : distance minimale entre les joueurs
     """
 
+
     def __init__(self, player0, player1):
         self._players = [player0, player1]
         self.setCollisionProperties(100)
         self._pos=[[0,0,0], [0,0,0]]
         self._dir=[[0,0,0], [0,0,0]]
         self._length = 0
-        #u = self.getDirection(0)
-        #v = self.getDirection(1)
-        #
-        #
         self.actualize()
+        """ initialize arena """
+        size = 300
+        self._arenaRight = [ [size, 0], [-1, 0] ]
+        self._arenaLeft = [ [-size, 0], [1, 0] ]
+        self._arenaTop = [ [0, size], [0, -1] ]
+        self._arenaBottom = [ [0, -size], [0, 1] ]
+
+    
 
     def actualize(self):
         self._pos[0] = self._players[0].position()
@@ -34,7 +39,7 @@ class Collision:
         self._dir[1][0] = -self._dir[0][0]
         self._dir[1][1] = -self._dir[0][1]
         self._players[0].setDirection(self._dir[0])
-        self._players[1].setDirection(self._dir[1])
+        self._players[1].setDirection(self._dir[1])        
 
     """ affecte les proprietes des collisions """
     def setCollisionProperties(self, distanceCollisionPlayer):
@@ -62,11 +67,11 @@ class Collision:
             collideOut = False
             deplacement = distance
             
-        v = self._dir[playerId]
+        v = [self._dir[playerId][0] * deplacement,
+             self._dir[playerId][1] * deplacement]
         pos = self._pos[playerId]
-        self._players[playerId].setPosition([pos[0] + v[0] * deplacement,
-                                             pos[1] + v[1] * deplacement,
-                                             pos[2]])
+        realPos = self.borderArena(pos, v)
+        self._players[playerId].setPosition(realPos)
         self.actualize()
         return collideOut
 
@@ -76,29 +81,74 @@ class Collision:
         distance peut etre positif ou negatif selon le sens
     """
     def moveSide(self, playerId, distance):
-        v = [ self._dir[playerId][1], -self._dir[playerId][0] ]
+        v = [ self._dir[playerId][1] * distance,
+              -self._dir[playerId][0] * distance ]
         pos = self._pos[playerId]
-        self._players[playerId].setPosition([pos[0] + v[0] * distance,
-                                             pos[1] + v[1] * distance,
-                                             pos[2]])
+        realPos = self.borderArena(pos, v)
+        self._players[playerId].setPosition(realPos)
         self.actualize()
         
 
-p0 = Player("Ninja", [10,10,2])
-p1 = Player("Pirate", [-10,-10,2])
 
-c = Collision(p0, p1)
+    def borderArena(self, position, deplacement):
+        posOut = [ position[0], position[1], position[2] ]
+        posOut[0] += deplacement[0]
+        posOut[1] += deplacement[1]
 
-c.moveForward(0, 30)
-c.moveSide(0, 10)
+        uRight = [ self._arenaRight[0][0],
+                   self._arenaRight[0][1] ]
+        uRight[0] -= posOut[0]
+        uRight[1] -= posOut[1]
+        if (uRight[0] * self._arenaRight[1][0] +
+            uRight[1] * self._arenaRight[1][1] > 0):
+            """ out of the arena """
+            return position
 
-print p0.position()
-print p1.position()
+        uLeft = [ self._arenaLeft[0][0],
+                  self._arenaLeft[0][1] ]
+        uLeft[0] -= posOut[0]
+        uLeft[1] -= posOut[1]
+        if (uLeft[0] * self._arenaLeft[1][0] +
+            uLeft[1] * self._arenaLeft[1][1] > 0):
+            """ out of the arena """
+            return position
 
-print c.getDirection(0)
-print c.getDirection(1)
+        uTop = [ self._arenaTop[0][0],
+                 self._arenaTop[0][1] ]
+        uTop[0] -= posOut[0]
+        uTop[1] -= posOut[1]
+        if (uTop[0] * self._arenaTop[1][0] +
+            uTop[1] * self._arenaTop[1][1] > 0):
+            """ out of the arena """
+            return position
 
-print p0.direction()
-print p1.direction()
+        uBottom = [ self._arenaBottom[0][0],
+                    self._arenaBottom[0][1] ]
+        uBottom[0] -= posOut[0]
+        uBottom[1] -= posOut[1]
+        if (uBottom[0] * self._arenaBottom[1][0] +
+            uBottom[1] * self._arenaBottom[1][1] > 0):
+            """ out of the arena """
+            return position
+        
+        return posOut
+
+
+# p0 = Player("Ninja", [10,10,2])
+# p1 = Player("Pirate", [-10,-10,2])
+# 
+# c = Collision(p0, p1)
+# 
+# c.moveForward(0, 30)
+# c.moveSide(0, 10)
+# 
+# print p0.position()
+# print p1.position()
+# 
+# print c.getDirection(0)
+# print c.getDirection(1)
+# 
+# print p0.direction()
+# print p1.direction()
 
         
