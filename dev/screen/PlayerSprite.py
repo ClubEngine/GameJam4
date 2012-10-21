@@ -9,7 +9,7 @@ il contient un tableau avec tout ses sprites
 """
 class PlayerSprite(pygame.sprite.Sprite):
     SPRITES_PATH = "assets/img/"
-    def __init__(self, player, pos = (0, 0), direction = (0, 0)):
+    def __init__(self, player, menu, pos = (0, 0), direction = (0, 0)):
         pygame.sprite.Sprite.__init__(self)
         self._movementSpritesList = []
         self._jumpList = [[] for i in range(36)]
@@ -21,6 +21,7 @@ class PlayerSprite(pygame.sprite.Sprite):
         for i in range(0, 360, 10):
             sprite = pygame.image.load(self.SPRITES_PATH + player.typeName() + "-pos-rot/" + str(i).zfill(4) + ".png")
             self._movementSpritesList.append(sprite) 
+            menu.drawSplashScreen()
             for j in range(9):
                 sprite = pygame.image.load(self.SPRITES_PATH + player.typeName() + "-attaque-melee/" + str(i) + "deg/" + str(j) + ".png")
                 self._meleeAttackList[i/10].append(sprite)

@@ -12,7 +12,7 @@ class Player:
     def __init__(self, name, typeName, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
-                "melee_attack": [500,9,10],
+                "melee_attack": [200,9,10],
                 "ranged_attack" : [1000,9,10],
                 "jump" : [350,9]})
 
@@ -92,11 +92,12 @@ class Player:
             self._attackTime = 0
             self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
     
-    def update(self):
+    def update(self, elapsedTime):
+        self._elapsedTime = elapsedTime
         if self._jumping: 
-            self._updateJump(self._elapsedTime)
+            self._updateJump(elapsedTime)
         if self._attacking:
-            self._updateAttack(self._elapsedTime)
+            self._updateAttack(elapsedTime)
 
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
