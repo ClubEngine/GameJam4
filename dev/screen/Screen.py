@@ -7,6 +7,7 @@ class Screen:
 
     u = (2./3, -1./3.5)
     v = (-2./3, -1./3.5)
+    w = (0, -10)
 
     def __init__(self, window, scene):
         self._window = window
@@ -19,8 +20,10 @@ class Screen:
 
     def calcPos(self, vector):
         return (
-            vector[0]*self.u[0] + vector[1]*self.v[0] + self._window.get_width()/2,
-            vector[0]*self.u[1] + vector[1]*self.v[1] + self._window.get_height()/2
+            vector[0]*self.u[0] + vector[1]*self.v[0] + vector[2]*self.w[0] +
+                self._window.get_width()/2,
+            vector[0]*self.u[1] + vector[1]*self.v[1] + vector[2]*self.w[1] +
+                self._window.get_height()/2
         )
 
     def calcVec(self, vector):
@@ -28,21 +31,6 @@ class Screen:
             vector[0]*self.u[0] + vector[1]*self.v[0],
             vector[0]*self.u[1] + vector[1]*self.v[1]
         )
-
-    def update(self):
-        pass
-#p0 = self._scene.getPlayer(0)
-        #p1 = self._scene.getPlayer(1)
-        #
-        #i = 0;
-        #for sprite in self._players.sprites:
-        #    p = self._scene.getPlayer(i)
-        #    sprite.update(self.calcPos(p.position()),
-        #                  self.calcVec(p0.direction()))
-        #    i += 1
-#                [self.calcPos(p0.position()), self.calcPos(p1.position())],
-#            [self.calcVec(p0.direction()), self.calcVec(p1.direction())]
-#        )
 
     def draw(self):
         self._players.update(self._scene, self)

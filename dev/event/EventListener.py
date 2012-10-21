@@ -1,4 +1,5 @@
 import pygame, sys
+import os
 from pygame.locals import *
 from scene import SoundManager
 
@@ -13,19 +14,12 @@ class EventListener:
         """
         self._scene = scene
         self._clock = pygame.time.Clock()
-        self._keysMap = dict({
-                pygame.K_z : [self._scene.moveForward, 0, False],
-                pygame.K_s : [self._scene.moveBackward, 0, False],
-                pygame.K_q : [self._scene.moveLeft, 0, False],
-                pygame.K_d : [self._scene.moveRight, 0, False],
-                pygame.K_e : [self._scene.jump, 0, False],
-                pygame.K_SPACE : [self._scene.attack, 0, False],
-                pygame.K_UP : [self._scene.moveForward, 1, False],
-                pygame.K_DOWN : [self._scene.moveBackward, 1, False],
-                pygame.K_LEFT : [self._scene.moveLeft, 1, False],
-                pygame.K_RIGHT : [self._scene.moveRight, 1, False],
-                pygame.K_RCTRL : [self._scene.jump, 1, False],
-                pygame.K_KP0 : [self._scene.attack, 1, False]})
+        if os.name == "posix":
+            file1 = open ("Keymap_Default.txt")
+        else:
+            file1 = open ("Keymap_Windows.txt")
+        self._keysMap = eval(file1.read())
+        file1.close()
         self._mouseMap = dict()
 
     def addMouseEvent(self, rectangle, method):
