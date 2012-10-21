@@ -38,9 +38,15 @@ class SoundManager:
         if(event == self.MELEE_ATTACK):
             sound = pygame.mixer.Sound("sound/punch.ogg")
         elif(event == self.DISTANT_ATTACK):
-            sound = pygame.mixer.Sound("sound/punch.ogg")
+            if typeName == "pirate":
+                sound = pygame.mixer.Sound("sound/verybiggunshot.ogg")
+            if typeName == "ninja":
+                sound = pygame.mixer.Sound("sound/kunaithrow.ogg")
         elif(event == self.JUMP):
-            sound = None
+            if typeName == "pirate":
+                sound = None
+            if typeName == "ninja":
+                sound = pygame.mixer.Sound("sound/ninjahop.ogg")
         elif(event == self.MOVE):
             sound = None
         elif(event == self.HURT):
