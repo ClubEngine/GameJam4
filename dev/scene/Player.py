@@ -33,9 +33,12 @@ class Player:
     def speed(self):
         return self._speed
 
-    def setSpeed(self, speed):
-        self._speed[0] = speed[0]
-        self._speed[1] = speed[1]
+    def setSpeed(self, speed, index):
+        self._speed[index] = speed
+
+    def incrementSpeed(self, speedX, speedY):
+        self._speed[0] += speedX
+        self._speed[1] += speedY
 
     def direction(self):
         return self._dir
