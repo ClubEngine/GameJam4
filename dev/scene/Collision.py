@@ -84,8 +84,13 @@ class Collision:
         distance peut etre positif ou negatif selon le sens
     """
     def moveSide(self, playerId, distance):
-        v = [ self._dir[playerId][1] * distance,
-              -self._dir[playerId][0] * distance ]
+        alpha = distance / (2 * 3.1415926537 *  self._length)
+        u = self._dir[playerId]
+        v = [ self._dir[playerId][1] * distance + self._dir[playerId][0] * distance * distance / 150,
+              -self._dir[playerId][0] * distance + self._dir[playerId][1] * distance * distance / 150]
+        d = [0, 0]
+        d[0] = cos(alpha) * v[0] - sin(alpha) * u[0]
+        d[1] = cos(alpha) * v[1] - sin(alpha) * u[1]
         pos = self._pos[playerId]
         realPos = self.borderArena(pos, v)
         self._players[playerId].setPosition(realPos)

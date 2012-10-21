@@ -53,6 +53,7 @@ class Scene:
         self._eventOccured[playerIndex] = True
         accel = delta * elapsedTime * acceleration
         decel = delta * elapsedTime * deceleration
+        self._decelerate(playerIndex, elapsedTime, 0.08)
 
         consMaxSpeed = maxSpeed
 
