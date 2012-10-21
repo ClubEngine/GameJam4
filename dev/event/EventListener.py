@@ -2,17 +2,20 @@ import pygame, sys
 import os
 from pygame.locals import *
 from scene import SoundManager
+from GameState import GameState
+
 
 class EventListener:
     """ Classe gerant les evenements. """
 
-    def __init__(self, scene):
+    def __init__(self, scene, main):
         """ 
         Constructor
         @param  EventListener   self
         @param  Scene           the scene managing the players.
         """
         self._scene = scene
+        self._main = main
         self._clock = pygame.time.Clock()
         if os.name == "posix":
             file1 = open ("Keymap_Default.txt")
@@ -92,6 +95,6 @@ class EventListener:
         """
         Quit the program.
         """
-        pygame.quit()
-        sys.exit()
+        self._main.state = GameState.START_MENU
+        self._main._startMenu.initListeners()
 
