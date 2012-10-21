@@ -86,12 +86,16 @@ class Player:
             self._jumping = True
             self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP, self._typeName)
             
-    def attack(self, elapsedTime):
+    def attack(self, elapsedTime, distance):
         self._elapsedTime = elapsedTime
         if not self._attacking:
-            self._attacking = "melee_attack"
             self._attackTime = 0
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
+            if distance > 200
+                self._attacking = "melee_attack"
+                self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
+            else 
+                self._attacking = "ranged_attack"
+                self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime
@@ -102,6 +106,7 @@ class Player:
 
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
+
     def getJumpFrameNumber(self):
         return self._jumpFrameNumber
 
