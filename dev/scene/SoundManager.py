@@ -14,6 +14,10 @@ class SoundManager:
         pygame.mixer.init()
         self._currentMusicName = ""
     
+    def playMenuMusic(self):
+        sound = pygame.mixer.music.load("music/maintheme.ogg")
+        pygame.mixer.music.play()
+        
     def playMusic(self, soundName):
         self._currentMusicName= soundName
         sound = pygame.mixer.music.load("music/" + self._currentMusicName + "-begin.ogg")
@@ -25,7 +29,7 @@ class SoundManager:
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_endevent()
         
-    def stopMusic(self):
+    def stop(self):
         pygame.mixer.music.stop()
         pygame.mixer.music.set_endevent()
 

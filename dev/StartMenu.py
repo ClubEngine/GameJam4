@@ -90,6 +90,8 @@ class StartMenu:
         self._main.state = GameState.IN_GAME
         self._main._listener.removeMouseEvent(self._startButtonListener)
         self._main._listener.removeMouseEvent(self._endButtonListener)
+        self._main.getSoundManager().stop()
+        self._main.getSoundManager().playMusic("fightmusic")
 
     def quitGame(self):
         """
