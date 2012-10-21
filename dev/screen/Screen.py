@@ -7,6 +7,7 @@ class Screen:
 
     u = (2./3, -1./3.5)
     v = (-2./3, -1./3.5)
+    w = (0, 1)
 
     def __init__(self, window, scene):
         self._window = window
@@ -19,8 +20,10 @@ class Screen:
 
     def calcPos(self, vector):
         return (
-            vector[0]*self.u[0] + vector[1]*self.v[0] + self._window.get_width()/2,
-            vector[0]*self.u[1] + vector[1]*self.v[1] + self._window.get_height()/2
+            vector[0]*self.u[0] + vector[1]*self.v[0] + vector[2]*self.w[0] +
+                self._window.get_width()/2,
+            vector[0]*self.u[1] + vector[1]*self.v[1] + vector[2]*self.w[1] +
+                self._window.get_height()/2
         )
 
     def calcVec(self, vector):
