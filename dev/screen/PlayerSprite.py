@@ -1,4 +1,7 @@
 import pygame
+
+from math import *
+
 """
 Player Sprite s'occupe de l'affichage d'un player
 il contient un tableau avec tout ses sprites
@@ -15,12 +18,11 @@ class PlayerSprite(pygame.sprite.Sprite):
             self._spritesList.append(sprite)
         self.update(pos, direction)
         
-    def update(self, pos, direction):
-        #angle = dir
-        #imageNb = angle / 10;
-        #self.image = self._spritesList[imageNb]
-        #self.rect = self.image.get_rect()
-        #pos = self._screen.calcPos((x,y))
-        #self.rect.x = pos[0]-75
-        #self.rect.y = pos[1]-85
-        pass
+    def update(self, position, direction):
+        angle = degrees(atan2(direction[1], direction[0]))
+        imageNb = angle / 10;
+        self.image = self._spritesList[imageNb]
+        self.rect = self.image.get_rect()
+        pos = self._screen.calcPos(position)
+        self.rect.x = pos[0]-75
+        self.rect.y = pos[1]-85
