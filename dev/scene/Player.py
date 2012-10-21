@@ -33,8 +33,13 @@ class Player:
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
         self._deathFrameNumber = 0
+
         self._deathTime = 0
-        self._weapon = Weapon(scene, playerId)
+        if typeName == 'pirate':
+            self._weapon = Weapon(scene, playerId, 'balle')
+        else:
+            self._weapon = Weapon(scene, playerId, 'shurikens')
+
         
     def name(self):
         return self._name
@@ -100,7 +105,11 @@ class Player:
                 self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
             else :
                 self._attacking = "ranged_attack"
+
+                self._weapon.launch()
+
                 self._scene.getSoundManager().playSoundFromEvent(SoundManager.DISTANT_ATTACK, self._typeName)
+
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime
@@ -131,7 +140,7 @@ class Player:
 
         #Collisions
         if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
-            self.hurt(self._actions[self._attacking][2]);
+            self._scene.getOtherPlayer(self).hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
             self._attackTime = 0
@@ -151,8 +160,7 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        self._deathFrameNumber =  min(self._deathFrameNumber+1, 30)
-        
+        return
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
