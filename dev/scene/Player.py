@@ -6,10 +6,10 @@ maxAttackTime = 200
 
 class Player:
 
-    def __init__(self, name):
+    def __init__(self, name, position):
         self._name = name
         self._life = 100
-        self._pos = [0,0,0]
+        self._pos = position
         self._jumpTime = 0
         self._jumping = False
         self._attackTime = 0
