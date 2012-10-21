@@ -108,6 +108,13 @@ class Scene:
 
     def attack(self, playerIndex, elapsedTime):
         self._players[playerIndex].attack(elapsedTime, self._collision.getDistance())
+    
+    def getOtherPlayer(self, player):
+        if player == self._players[0]:
+            return self._players[1]
+        else:
+            return self._players[0]
+
 
     def getPlayer(self, playerId):
         """ retourne le joueur playerId.
