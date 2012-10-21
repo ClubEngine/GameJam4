@@ -45,7 +45,7 @@ class Collision:
     """ affecte les proprietes des collisions """
     def setCollisionProperties(self, distanceCollisionPlayer):
         self._distanceCollisionPlayers = distanceCollisionPlayer
-        self._playerSize = 40
+        self._playerSize = 10
 
     """ retourne la distance entre les deux persos """
     def getDistance(self):
@@ -147,7 +147,7 @@ class Collision:
         u = [ positionWeapon[0] - self._pos[playerId][0], 
             positionWeapon[1] - self._pos[playerId][1],
             positionWeapon[2] - self._pos[playerId][2] ]
-        l = sqrt(u[0] * u [0] + u[1] + u[1] + u[2] * u[2])
+        l = sqrt(u[0] * u [0] + u[1] * u[1] + u[2] * u[2])
 
         if l < self._playerSize:
             return True

@@ -79,10 +79,6 @@ class Player:
         if self._life < 0:
             self._life = 0
 
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.DEATH, self._typeName)
-            self._scene.main._window.blit(pygame.image.load("assets/gameover.png"),[0, 0])
-
-
     def isDead(self):
         return self._life == 0
 
@@ -116,7 +112,7 @@ class Player:
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime
-        self._weapon.update(1, elapsedTime)
+        self._weapon.update(0.2, elapsedTime)
         if self._attacking:
             self._updateAttack(elapsedTime)
         if self._jumping: 
@@ -142,7 +138,7 @@ class Player:
         self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
 
         #Collisions
-        if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 2 :
+        if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
             self._scene.getOtherPlayer(self).hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
@@ -163,8 +159,7 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        self._deathFrameNumber = min(self._deathFrameNumber + 1, 30)
-        
+        return
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
