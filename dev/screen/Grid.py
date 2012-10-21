@@ -11,6 +11,7 @@ class Grid:
         self._screen = screen
         self._iColor = 0
         self._backImg = pygame.image.load("assets/splash/0050.png")
+        self._poles = pygame.image.load("assets/poteaux.png")
 
     def draw(self):
 
@@ -31,3 +32,6 @@ class Grid:
         #         self._screen.calcPos([row, -300, 0]),
         #         self._screen.calcPos([row, 300, 0]),
         #     )
+    
+    def afterDraw(self):
+        self._screen._window.blit(self._poles, [0, 0])

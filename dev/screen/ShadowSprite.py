@@ -9,8 +9,7 @@ class ShadowSprite(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.SPRITES_PATH + "ombre.png")
         
     def update(self, scene, screen):
-        p = scene.getPlayer(self._player.getID())
-        spos = p.position()
+        spos = self._player.position()
         spos[2] = 0
         position = screen.calcPos(spos)
         #Position update

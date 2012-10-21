@@ -75,8 +75,8 @@ class Collision:
         self.actualize()
         return collideOut
 
-    def getCollisionHorizontale():
-        return abs(self._player[0] - self._player[1])
+    def getCollisionVerticale(self):
+        return abs(self._pos[0][2] - self._pos[1][2])
 
 
     """ deplace le perso playerId de distance metres vers la droite
