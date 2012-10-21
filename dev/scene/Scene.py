@@ -45,7 +45,7 @@ class Scene:
 
     def moveForward(self, playerIndex, elapsedTime):
         if self._players[playerIndex].speed()[0] < 0:
-            self._players[playerIndex].incrementSpeed(elapsedTime * decel, 0)
+            self._players[playerIndex].incrementSpeed(elapsedTime * (decel + acceleration), 0)
         if self._players[playerIndex].speed()[0] < maxSpeed:
             self._players[playerIndex].incrementSpeed(elapsedTime * acceleration, 0)
             if self._players[playerIndex].speed()[0] > maxSpeed:
