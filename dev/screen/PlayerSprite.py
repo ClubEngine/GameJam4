@@ -20,6 +20,8 @@ class PlayerSprite(pygame.sprite.Sprite):
         
     def update(self, scene, screen):
         p = scene.getPlayer(self._playerId)
+
+        #Position update
         position = screen.calcPos(p.position())
         direction = screen.calcVec(p.direction())
         #print "{} + {}-{}".format(self._playerId, position, direction)
@@ -28,17 +30,11 @@ class PlayerSprite(pygame.sprite.Sprite):
         imageNb = int(angle) / 10
         self.image = self._spritesList[imageNb]
         self.rect = self.image.get_rect()
-        ##pos = self._screen.calcPos(position)
+        #pos = self._screen.calcPos(position)
         self.rect.x = position[0]-75
         self.rect.y = position[1]-85
 
-#=======
-#    def update(self, pos, dir):
-#        self.image = self._spritesList[0]
-#        imageNb = 0 / 10;
-#        self.image = self._spritesList[imageNb]
-#        self.rect = self.image.get_rect()
-#        pos = self._screen.calcPos(pos)
-#        self.rect.x = pos[0]-75
-#        self.rect.y = pos[1]-85
-#>>>>>>> 023f01c00a36bfd3138187e3fa405e9307eada0a
+        #Attack update
+        if p.isAttacking():
+            self.image = self.
+
