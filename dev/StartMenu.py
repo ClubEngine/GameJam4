@@ -56,7 +56,11 @@ class StartMenu:
         """
         #self._main._window.fill(Colors.WHITE)
         #self._main._window.blit(self._backImg, [0, 0])
-
+        # self._main._window.fill(pygame.Color(0,0,0))   
+        self._main._window.blit(
+            pygame.image.load("assets/splash/0050.png"),
+            [0, 0]
+        ) 
         pygame.draw.rect(
             self._main._window, Colors.LIGHT_GREY,
             self._startButtonRect, 0
