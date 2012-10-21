@@ -6,6 +6,7 @@ maxSpeed = 0.7
 acceleration = 0.0015
 epsilon = 0.05
 deceleration = 0.002
+maxDist = 750
 
 class Scene:
 
@@ -53,19 +54,25 @@ class Scene:
         accel = delta * elapsedTime * acceleration
         decel = delta * elapsedTime * deceleration
 
+        consMaxSpeed = maxSpeed
+
+        if axe == 1:
+            dist = 0.5 + (self._collision.getDistance() / maxDist) / 2
+            consMaxSpeed *= dist
+            
 
         if delta * self._players[playerIndex].speed()[axe] < 0:
             if axe == 0:
                 self._players[playerIndex].incrementSpeed(accel + decel, 0)
             else:
                 self._players[playerIndex].incrementSpeed(0, decel + accel)
-        if delta * self._players[playerIndex].speed()[axe] < maxSpeed:
+        if delta * self._players[playerIndex].speed()[axe] < consMaxSpeed:
             if axe == 0:
                 self._players[playerIndex].incrementSpeed(accel, 0)
             else:
                 self._players[playerIndex].incrementSpeed(0, accel)
-            if delta * self._players[playerIndex].speed()[axe] > maxSpeed:
-                self._players[playerIndex].setSpeed(delta * maxSpeed, axe)
+            if delta * self._players[playerIndex].speed()[axe] > consMaxSpeed:
+                self._players[playerIndex].setSpeed(delta * consMaxSpeed, axe)
 
     def moveForward(self, playerIndex, elapsedTime):
         isJumping = self._players[playerIndex].isJumping()
