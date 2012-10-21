@@ -8,7 +8,7 @@ class Screen:
 
     u = (2./3, -1./3.5)
     v = (-2./3, -1./3.5)
-    w = (0, -10)
+    w = (0, -15)
 
     def __init__(self, window, scene):
         self._window = window
@@ -17,7 +17,7 @@ class Screen:
         self._grid = Grid(self)
         self._players = pygame.sprite.Group()
         player1 = PlayerSprite('pirate', 0)
-        player2 = PlayerSprite('pirate', 1)
+        player2 = PlayerSprite('ninja', 1)
         self._players.add(player1)
         self._players.add(player2)
         self._shadows = pygame.sprite.Group()
@@ -30,6 +30,15 @@ class Screen:
                 self._window.get_width()/2,
             vector[0]*self.u[1] + vector[1]*self.v[1] + vector[2]*self.w[1] +
                 self._window.get_height()/2
+        )
+
+    def calcPosZ(self, vector):
+        return (
+            vector[0]*self.u[0] + vector[1]*self.v[0] + vector[2]*self.w[0] +
+                self._window.get_width()/2,
+            vector[0]*self.u[1] + vector[1]*self.v[1] + vector[2]*self.w[1] +
+                self._window.get_height()/2,
+            0
         )
 
     def calcVec(self, vector):

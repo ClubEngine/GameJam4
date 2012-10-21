@@ -31,7 +31,7 @@ class Player:
         self._jumpFrameNumber = 0
 
     def name(self):
-        return name;
+        return self._name;
 
     def position(self):
         return self._pos
