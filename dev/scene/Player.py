@@ -1,6 +1,10 @@
+import pygame 
+
+maxJumpTime = 500
+jumpDelta = 2.0 / (maxJumpTime * maxJumpTime)
+maxAttackTime = 200
+
 class Player:
-    maxJumpTime = 1
-    jumpDelta = 0.002
 
     def __init__(self, name):
         self._name = name
@@ -8,6 +12,9 @@ class Player:
         self._pos = [0,0,0]
         self._jumpTime = 0
         self._jumping = False
+        self._attackTime = 0
+        self._attacking = False
+        self._clock = pygame.time.Clock()
 
     def name(self):
         return name;
@@ -32,20 +39,32 @@ class Player:
         if not self._jumping:
             self._jumpTime = 0 
             self._jumping = True
+
+    def attack(self):
+        if not self._attacking:
+            self._attacking = True
+            self._attackTime = 0
     
     def update(self):
-        timeElapsed = self._clock.tick()
+        timeElapsed = self._clock.tick(30)
         if self._jumping: 
-            self._jumpTime += timeElapsed
-            if self._jumpTime < maxJumpTime:
-                self._z += jumpDelta * timeElapsed 
-            else:
-                self._z -= jumpDelta * timeElapsed
-                if self._z < 0:
-                    self._z = 0
-            if self._self._jumptime >= 2*maxJumpTime:
-                self._z = 0
-                self._jumping = False
-                self._jumpTime = 0
+            _updateJump(timeElapsed)
+        if self._attacking:
+            _updateAttack(timeElapsed)
+
+    def _updateAttack(self, timeElapsed):
+        self._attackTime += timeElapsed
+        if self._attackTime > maxAttackTime:
+            self._attacking = False
+        # Gerer collisions
+
+    def _updateJump(self, timeElapsed):
+        self._jumpTime += timeElapsed
+        jumpTime = (self._jumpTime - maxJumpTime) 
+        self._pos[2] = jumpDelta * (-(jumpTime * jumpTime) + maxJumpTime * maxJumpTime)
+        if self._jumpTime >= 2*maxJumpTime:
+           self._pos[2] = 0
+           self._jumping = False
+           self._jumpTime = 0
 
         
