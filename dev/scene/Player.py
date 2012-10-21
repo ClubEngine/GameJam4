@@ -61,6 +61,7 @@ class Player:
         self._dir[2] = direction[2]        
 
     def hurt(self, damage):
+        self._scene.getSoundManager().playSoundFromEvent(SoundManager.HURT)
         self._life -= damage
         if self._life < 0:
             self._life = 0
