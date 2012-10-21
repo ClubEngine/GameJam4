@@ -30,26 +30,31 @@ class StartMenu:
             self._main._window.get_width()/2-75, 100,
             150, 30
         )
-        self._backImg = pygame.image.load("assets/arena/startMenu.png")
+        # self._splashList = [51]
+        # for i in range(51):
+        #     self._splashList.append(
+        #         pygame.image.load("assets/splash/" + str(i).zfill(4) + ".png")
+        #     )
 
+        self._iSplashList=0
         self.initListeners()
 
     def drawSplashScreen(self):
-        self._main._window.fill(Colors.WHITE)
-        self._main._window.blit(self._backImg, [0, 0])
-
-        text = self._font.render("loading ...", True, Colors.BLACK)
-        self._main._window.blit(text, [self._main._window.get_width()/2-54,35])
-
+        self._main._window.blit(
+            pygame.image.load("assets/splash/" + str(self._iSplashList).zfill(4) + ".png"),
+            [0, 0]
+        )
         pygame.display.flip()
+        if self._iSplashList<50:
+            self._iSplashList+=1
 
     def draw(self):
         """
         Draw the start menu.
         @param  self [StartMenu]    itself
         """
-        self._main._window.fill(Colors.WHITE)
-        self._main._window.blit(self._backImg, [0, 0])
+        #self._main._window.fill(Colors.WHITE)
+        #self._main._window.blit(self._backImg, [0, 0])
 
         pygame.draw.rect(
             self._main._window, Colors.LIGHT_GREY,
