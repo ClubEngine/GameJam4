@@ -26,6 +26,18 @@ class EventListener:
                 pygame.K_RCTRL : [self._scene.jump, 1, False],
                 pygame.K_KP0 : [self._scene.attack, 1, False]})
 
+    def bindKeyAction(self, action, char, key):
+        """
+        Set the key which allow the character char to perform the action action.
+        """
+        # Copy of the dict to allow deletion during iteration
+        keysMapTmp = self._keysMap.copy()
+        for actionKey in keysMapTmp:
+            if (self._keysMap[actionKey][0] == action and self._keysMap[actionKey][1] == char) or actionKey == key:
+                del self._keysMap[actionKey]
+
+        self._keysMap[key] = [action, char, False];
+
     def listen(self):
         """
         Listen for events and call the scene's methods.
