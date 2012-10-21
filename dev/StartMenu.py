@@ -45,7 +45,7 @@ class StartMenu:
             self.quitGame
         )
 
-    def drawLoading(self):
+    def drawSplashScreen(self):
         self._main._window.fill(Colors.WHITE)
         self._main._window.blit(self._backImg, [0, 0])
 
