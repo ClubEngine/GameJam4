@@ -11,7 +11,7 @@ class Player:
     def __init__(self, name, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
-                "melee_attack": [500,9,10],
+                "melee_attack": [200,9,10],
                 "ranged_attack" : [1000,9,10],
                 "jump" : [350,9]})
 
