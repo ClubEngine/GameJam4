@@ -1,8 +1,7 @@
 import pygame 
 from SoundManager import SoundManager
-from Scene import Player
-from Scene import Scene
-from Scene import Collision
+from Scene import *
+from Collision import *
 
 Speed_weapon = 1
 MaxTTL = 2000
