@@ -4,6 +4,7 @@ from SoundManager import SoundManager
 
 maxSpeed = 0.001
 acceleration = 0.001
+epsilon = 0.01
 
 class Scene:
 
@@ -26,7 +27,7 @@ class Scene:
             player = self._players[playerIndex]
             if not self._eventOccured[playerIndex]:
                 for speed in player.speed():
-                    if speed != 0:
+                    if speed > epsilon and speed < -epsilon:
                         speed -= acceleration * elapsedTime
         self._eventOccured = [ False, False ]
         self._elapsedTime = elapsedTime
