@@ -7,8 +7,8 @@ class Scene:
 
     
 
-    def __init__(self):
-        self._players = [ Player("player1", [2, 2, 0]), Player("player2", [1, 0, 0]) ] 
+    def __init__(self, positions):
+        self._players = [ Player("player1", positions[0]), Player("player2", positions[1]) ] 
         self._collision = Collision(self._players[0], self._players[1])
 
     def update(self):
