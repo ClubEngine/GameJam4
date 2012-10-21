@@ -2,13 +2,22 @@ from GameState import GameState
 import pygame
 
 class Colors:
-    BLACK      = (   0,   0,   0)
-    WHITE      = ( 255, 255, 255)
-    LIGHT_GREY = ( 200, 200, 200)
+    BLACK       = (   0,   0,   0)
+    WHITE       = ( 255, 255, 255)
+    RED         = ( 255,   0,   0)
+    GREEN       = (   0, 255,   0)
+    BLUE        = (   0,   0, 255)
+    LIGHT_GREY  = ( 200, 200, 200)
 
 class StartMenu:
+    """ Class for the start menu. """
 
     def __init__(self, main):
+        """
+        Constructor.
+        @param  self [StartMenu]    itself
+        @param  main [Main]         a reference to the game main object
+        """
         self._main = main
 
         self._font = pygame.font.Font('freesansbold.ttf', 20)
@@ -19,6 +28,7 @@ class StartMenu:
             150,
             30
         )
+        self._backImg = pygame.image.load("assets/arena/startMenu.png")
 
         self._startButtonListener = self._main._listener.addMouseEvent(
             self._startButtonRect,
@@ -26,7 +36,13 @@ class StartMenu:
         )
 
     def draw(self):
+        """
+        Draw the start menu.
+        @param  self [StartMenu]    itself
+        """
+        print("bonjour")
         self._main._window.fill(Colors.WHITE)
+        self._main._window.blit(self._backImg, [0, 0])
 
         pygame.draw.rect(
             self._main._window,
@@ -41,5 +57,9 @@ class StartMenu:
         pygame.display.flip()
 
     def startGame(self):
+        """
+        Handler for the click on the "start game" button.
+        @param  self [StartMenu]    itself
+        """
         self._main.state = GameState.IN_GAME
         self._main._listener.removeMouseEvent(self._startButtonListener)
