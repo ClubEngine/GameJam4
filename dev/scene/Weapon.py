@@ -38,15 +38,17 @@ class Weapon:
             return
         self._pos[0] += Speed_weapon * elapsedTime * self._direction[0]
         self._pos[1] += Speed_weapon * elapsedTime * self._direction[1]
-        TTL -= elapsedTime
-        if hurtPlayer(playerId, self._pos):
+        self._TTL -= elapsedTime
+        if self._scene.getCollision().hurtPlayer((1 + self._playerId) % 2, self._pos):
             self._active = False
-            scene.getPlayer(self._playerId).hurt(Damage)
-        if TTL < 0:
+            self._scene.getPlayer((1 + self._playerId) % 2).hurt(Damage)
+        if self._TTL < 0:
             self._active = False
 
     def launch (self):
         self._TTL = MaxTTL
-        self._pos = self._scene.getPlayer(self._playerId).position()
+        self._pos[0] = self._scene.getPlayer(self._playerId).position()[0]
+        self._pos[1] = self._scene.getPlayer(self._playerId).position()[1]
+        self._pos[2] = self._scene.getPlayer(self._playerId).position()[2]
         self._direction = self._scene.getCollision().getDirection(self._playerId)
         self._active = True
