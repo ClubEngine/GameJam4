@@ -14,7 +14,6 @@ class Grid:
         self._poles = pygame.image.load("assets/poteaux.png")
 
     def draw(self):
-
         self._screen._window.blit(self._backImg, [0, 0])
 
         # for row in xrange(-300, 301, 20):
