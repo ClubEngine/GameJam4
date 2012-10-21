@@ -24,6 +24,17 @@ class Collision:
         v2 = self._player[playerId].position()
         u = [v1[0] - v2[0], v1[1] - v2[1]]
         projectLength = sqrt(u[0] * u[0] + u[1] * u[1])
+        
+    """ retourne la direction dans laquelle regarde le perso """
+    def getDirection(self, playerId):
+        v1 = self._player[(playerId + 1) % 2].position()
+        v2 = self._player[playerId].position()
+        u = [v1[0] - v2[0], v1[1] - v2[1], 0]
+        projectLength = sqrt(u[0] * u[0] + u[1] * u[1])
+        if (projectLength != 0):
+            u[0] /= projectLength
+            u[1] /= projectLength
+        return u
 
     """ deplace le perso playerId de distance metres
         playerId peut valoir 0 ou 1
@@ -36,8 +47,12 @@ class Collision:
         v2 = self._player[playerId].position()
         u = [v1[0] - v2[0], v1[1] - v2[1]]
         projectLength = sqrt(u[0] * u[0] + u[1] * u[1])
-        u[0] /= projectLength
-        u[1] /= projectLength
+        if (projectLength != 0):
+            u[0] /= projectLength
+            u[1] /= projectLength
+        else:
+            return True
+
         if (projectLength - self._distanceCollisionPlayers <= distance):
             """ etat de collision """
             collideOut = True
@@ -60,7 +75,11 @@ class Collision:
         v2 = self._player[playerId].position()
         u = [v1[0] - v2[0], v1[1] - v2[1]]
         projectLength = sqrt(u[0] * u[0] + u[1] * u[1])
-        v = [u[1] / projectLength, -u[0] / projectLength]
+        if (projectLength != 0):
+            v = [u[1] / projectLength, -u[0] / projectLength]
+        else:
+            v = [0, 0]
+
         self._player[playerId].setPosition([v2[0] + v[0] * distance,
                                             v2[1] + v[1] * distance,
                                             v2[2]])
@@ -77,6 +96,8 @@ class Collision:
 #  
 #  print p0.position()
 #  print p1.position()
-
+#  
+#  print c.getDirection(0)
+#  print c.getDirection(1)
 
         
