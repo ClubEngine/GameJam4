@@ -9,9 +9,6 @@ class Grid:
 
     def __init__(self, window):
         self._window = window
-        self._mat = [
-            []
-        ]
         self._iColor = 0
 
     def draw(self):
@@ -22,6 +19,3 @@ class Grid:
         for yOffset in xrange(0, self._window.get_height(), 10):
             pygame.draw.line(self._window, self.colors[self._iColor],
                 [0, yOffset], [self._window.get_width(), yOffset], 1)
-
-        self._iColor+=1
-        self._iColor%=3
