@@ -78,7 +78,7 @@ class Collision:
         return collideOut
 
     def getCollisionVerticale(self):
-        return abs(self._pos[0][2] - self._pos[1][2])
+        return abs(self._pos[1][2] - self._pos[0][2])
 
 
     """ deplace le perso playerId de distance metres vers la droite

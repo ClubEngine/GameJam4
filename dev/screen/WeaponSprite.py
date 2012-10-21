@@ -17,6 +17,7 @@ class WeaponSprite(pygame.sprite.Sprite):
         self.rect.y = self._weapon.position()[1]
         print 'Weapon'
         print self.rect
+        print self.image.get_rect()
 
     def weapon(self):
         return self._weapon
