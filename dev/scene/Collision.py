@@ -13,6 +13,10 @@ class Collision:
     def __init__(self, player0, player1):
         self._player = [player0, player1]
         self.setCollisionProperties(0.5)
+        u = self.getDirection(0)
+        v = self.getDirection(1)
+        player0.setDirection(u)
+        player1.setDirection(v)
 
     """ affecte les proprietes des collisions """
     def setCollisionProperties(self, distanceCollisionPlayer):
@@ -50,8 +54,6 @@ class Collision:
         if (projectLength != 0):
             u[0] /= projectLength
             u[1] /= projectLength
-        else:
-            return True
 
         if (projectLength - self._distanceCollisionPlayers <= distance):
             """ etat de collision """
@@ -63,6 +65,12 @@ class Collision:
         self._player[playerId].setPosition([v2[0] + u[0] * deplacement,
                                             v2[1] + u[1] * deplacement,
                                             v2[2]])
+
+        dir0 = self.getDirection(0)
+        dir1 = self.getDirection(1)
+        self._player[0].setDirection(dir0)
+        self._player[1].setDirection(dir1)
+
         return collideOut
 
 
@@ -83,21 +91,28 @@ class Collision:
         self._player[playerId].setPosition([v2[0] + v[0] * distance,
                                             v2[1] + v[1] * distance,
                                             v2[2]])
-        
+        dir0 = self.getDirection(0)
+        dir1 = self.getDirection(1)
+        self._player[0].setDirection(dir0)
+        self._player[1].setDirection(dir1)
+                
         
 
-#  p0 = Player("Ninja")
-#  p1 = Player("Pirate")
-#  p1.setPosition([10,10,2])
-#  c = Collision(p0, p1)
-#  
-#  c.moveForward(0, 30)
-#  c.moveSide(0, 10)
-#  
-#  print p0.position()
-#  print p1.position()
-#  
-#  print c.getDirection(0)
-#  print c.getDirection(1)
+#p0 = Player("Ninja")
+#p1 = Player("Pirate")
+#p1.setPosition([10,10,2])
+#c = Collision(p0, p1)
+#
+#c.moveForward(0, 30)
+#c.moveSide(0, 10)
+#
+#print p0.position()
+#print p1.position()
+#
+#print c.getDirection(0)
+#print c.getDirection(1)
+#
+#print p0.direction()
+#print p1.direction()
 
         

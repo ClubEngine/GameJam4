@@ -33,3 +33,9 @@ class Scene:
         self._players[playerIndex].jump()
     def attack(self, playerIndex):
         self._players[playerIndex].attack() 
+
+    """ retourne le joueur playerId.
+        playerId vaut 1 ou 0
+    """
+    def getPlayer(self, playerId):
+        return _players[playerId]
