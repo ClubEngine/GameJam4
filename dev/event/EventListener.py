@@ -2,7 +2,14 @@ import pygame, sys
 from pygame.locals import *
 
 class EventListener:
+    """ Classe gerant les evenements. """
+
     def __init__(self, scene):
+        """ 
+        Constructor
+        @param  EventListener   self
+        @param  Scene           the scene managing the players.
+        """
         self._scene = scene
         self._keysMap = dict({
                 pygame.K_z : [self._scene.moveForward, 0, 0],
@@ -19,6 +26,9 @@ class EventListener:
                 pygame.K_KP0 : [self._scene.attack, 1, 0]})
 
     def listen(self):
+        """
+        Listen for events and call the scene's methods.
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._quit()
@@ -39,6 +49,9 @@ class EventListener:
                 method(playerIndex)
 
     def _quit(self):
+        """
+        Quit the program.
+        """
         pygame.quit()
         sys.exit()
 
