@@ -1,17 +1,25 @@
+from Player import Player
+
+
 class Scene:
+
     def __init__(self):
-        pass
+        self._players = [ Player("player1") ] 
+
     def update(self):
+        for player in self._players:
+            player.update()
+
+    def moveForward(self, playerIndex):
         pass
-    def forwardMove(self, playerIndex):
+    def moveBackward(self, playerIndex):
         pass
-    def backwardMove(self, playerIndex):
+    def moveRight(self, playerIndex):
         pass
-    def rightMove(self, playerIndex):
+    def moveLeft(self, playerIndex):
         pass
-    def leftMove(self, playerIndex):
-        pass
+
     def jump(self, playerIndex):
-        players[playerIndex].jump()
+        self._players[playerIndex].jump()
     def attack(self, playerIndex):
-        pass
+        self._players[playerIndex].attack() 
