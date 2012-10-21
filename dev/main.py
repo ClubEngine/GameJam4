@@ -43,7 +43,7 @@ class Main:
         pygame.mouse.set_cursor(*pygame.cursors.tri_left)
 
         # game objects initialization
-        self._scene = Scene([ [100, 0, 0], [-100, 0, 0] ])
+        self._scene = Scene([ [100, 0, 0], [-100, 0, 0] ], self)
         self._listener = EventListener(self._scene, self)
         self._startMenu = StartMenu(self)
         self._startMenu.drawSplashScreen() # just before loading

@@ -10,13 +10,13 @@ maxDist = 750
 
 class Scene:
 
-    def __init__(self, positions):
+    def __init__(self, positions, main):
         self._players = [ Player("Ninja", "ninja", positions[1], self, 0), Player("Pirate", "pirate", positions[0], self, 1) ] 
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
         self._elapsedTime = 0;
-
+        self.main = main
     def _decelerate(self, playerIndex, elapsedTime, ratio=1.0):
         player = self._players[playerIndex]
         for i in range(0,2):

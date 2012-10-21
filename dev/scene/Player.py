@@ -79,6 +79,7 @@ class Player:
         if self._life < 0:
             self._life = 0
             self._scene.getSoundManager().playSoundFromEvent(SoundManager.DEATH, self._typeName)
+            self._scene.main._window.blit(pygame.image.load("assets/gameover.png"),[0, 0])
 
     def isDead(self):
         return self._life == 0
