@@ -2,7 +2,7 @@ from Player import Player
 from Collision import Collision
 from SoundManager import SoundManager
 
-maxSpeed = 0.001
+maxSpeed = 0.8
 acceleration = 0.001
 
 class Scene:
@@ -30,7 +30,6 @@ class Scene:
                         speed -= acceleration * elapsedTime
         self._eventOccured = [ False, False ]
         self._elapsedTime = elapsedTime
-        
 
     def moveForward(self, playerIndex, elapsedTime):
         if self._players[playerIndex].speed()[0] < maxSpeed:
@@ -48,14 +47,14 @@ class Scene:
 
     def moveRight(self, playerIndex, elapsedTime):
         if self._players[playerIndex].speed()[1] < maxSpeed:
-            self._players[playerIndex].incrementSpeed(elapsedTime * acceleration, 1)
+            self._players[playerIndex].incrementSpeed(0, elapsedTime * acceleration)
             if self._players[playerIndex].speed()[1] > maxSpeed:
                 self._players[playerIndex].setSpeed(maxSpeed, 1)
         self._eventOccured[playerIndex] = True
 
     def moveLeft(self, playerIndex, elapsedTime):
         if self._players[playerIndex].speed()[1] > -maxSpeed:
-            self._players[playerIndex].incrementSpeed(-elapsedTime * acceleration, 1)
+            self._players[playerIndex].incrementSpeed(0, -elapsedTime * acceleration)
             if self._players[playerIndex].speed()[1] < -maxSpeed:
                 self._players[playerIndex].setSpeed(-maxSpeed, 1)
         self._eventOccured[playerIndex] = True
