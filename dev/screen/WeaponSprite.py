@@ -12,7 +12,11 @@ class WeaponSprite(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.SPRITES_PATH + weapon.name() + ".png")
 
     def update(self):
-        self.rect = weapon.position();
+        self.rect = self.image.get_rect()
+        self.rect.x = self._weapon.position()[0]
+        self.rect.y = self._weapon.position()[1]
+        print 'Weapon'
+        print self.rect
 
     def weapon(self):
         return self._weapon
