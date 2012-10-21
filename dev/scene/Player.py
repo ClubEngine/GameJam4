@@ -1,7 +1,5 @@
 import pygame 
 
-maxAttackTime = 200
-
 class Player:
 
     """
@@ -13,9 +11,9 @@ class Player:
     def __init__(self, name, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
-                "melee_attack": [1000,9,10],
+                "melee_attack": [500,9,10],
                 "ranged_attack" : [1000,9,10],
-                "jump" : [1000,9]})
+                "jump" : [500,9]})
 
         self._name = name
         self._scene = scene
@@ -30,6 +28,7 @@ class Player:
         self._speed = [ 0, 0 ]
         self._elapsedTime = 0
         self._attackFrameNumber = 0
+        self._jumpFrameNumber = 0
 
     def name(self):
         return name;
@@ -94,23 +93,26 @@ class Player:
 
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
+    def getJumpFrameNumber(self):
+        return self._jumpFrameNumber
 
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
 
-        self._attackFrameNumber =(self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0]
+        self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
 
         #Collisions
         if self._scene.getCollision().getDistance() < self._attackFrameNumber and self._scene.getCollision.getCollisionHorizontale() < 1 :
-            self.hurt(self._actions["melee_attack"][2]);
-            
+            self.hurt(self._actions[self._attacking][2]);
 
-
-        if self._attackTime > maxAttackTime:
+        if self._attackTime > self._actions[self._attacking][0]:
+            self._attackTime = 0
             self._attacking = ""
 
     def _updateJump(self, elapsedTime):
         self._jumpTime += elapsedTime
+        self._jumpFrameNumber = min((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0] - 1,self._actions["jump"][1] - 1)
+
         maxJumpTime = self._actions["jump"][0]
         jumpTime = (self._jumpTime - maxJumpTime) 
         jumpDelta = 2.0 / (maxJumpTime * maxJumpTime)
