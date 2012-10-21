@@ -31,7 +31,8 @@ class Player:
         self._elapsedTime = 0
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
-
+        self._deathFrameNumber = 0
+        
     def name(self):
         return self._name
 
@@ -86,24 +87,35 @@ class Player:
             self._jumping = True
             self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP, self._typeName)
             
-    def attack(self, elapsedTime):
+    def attack(self, elapsedTime, distance):
         self._elapsedTime = elapsedTime
         if not self._attacking:
-            self._attacking = "melee_attack"
             self._attackTime = 0
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
+            if distance > 200:
+                self._attacking = "melee_attack"
+                self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
+            else 
+                self._attacking = "ranged_attack"
+                self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime
-        if self._jumping: 
-            self._updateJump(elapsedTime)
+        
         if self._attacking:
             self._updateAttack(elapsedTime)
-
+        if self._jumping: 
+            self._updateJump(elapsedTime)
+        if self.isDead():
+            self._updateDeath(elapsedTime)
+            
     def getAttackFrameNumber(self):
         return self._attackFrameNumber
+
     def getJumpFrameNumber(self):
         return self._jumpFrameNumber
+
+    def getDeathFrameNumber(self):
+        return self._deathFrameNumber;
 
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
@@ -131,6 +143,8 @@ class Player:
            self._jumping = False
            self._jumpTime = 0
 
+    def _updateDeath(self, elapsedTime):
+        return
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
