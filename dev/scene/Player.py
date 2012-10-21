@@ -33,6 +33,7 @@ class Player:
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
         self._deathFrameNumber = 0
+        self._deathTime = 0
         if typeName == 'pirate':
             self._weapon = Weapon(scene, playerId, 'balle')
         else:
@@ -96,7 +97,7 @@ class Player:
         self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attackTime = 0
-            if distance > 200:
+            if distance < 200:
                 self._attacking = "melee_attack"
                 self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
             else :
@@ -121,6 +122,9 @@ class Player:
 
     def getDeathFrameNumber(self):
         return self._deathFrameNumber;
+
+    def getAction(self):
+        return self._attacking
 
     def _updateAttack(self, elapsedTime):
         self._attackTime += elapsedTime
@@ -149,7 +153,8 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        return
+        self._deathFrameNumber =  min(self._deathFrameNumber+1, 30)
+        
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
