@@ -19,10 +19,10 @@ class SoundManager:
     def introEnd(self):
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_endevent()
-
         
     def stopMusic(self):
         pygame.mixer.music.stop()
+        pygame.mixer.music.set_endevent()
 
     def playSound(self, sound):
         pygame.mixer.find_channel().play(sound)
