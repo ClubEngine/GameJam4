@@ -31,8 +31,9 @@ class Collision:
         v2 = self._player[playerId].position()
         u = [v1[0] - v2[0], v1[1] - v2[1], 0]
         projectLength = sqrt(u[0] * u[0] + u[1] * u[1])
-        u[0] /= projectLength
-        u[1] /= projectLength
+        if (projectLength != 0):
+            u[0] /= projectLength
+            u[1] /= projectLength
         return u
 
     """ deplace le perso playerId de distance metres
@@ -74,7 +75,11 @@ class Collision:
         v2 = self._player[playerId].position()
         u = [v1[0] - v2[0], v1[1] - v2[1]]
         projectLength = sqrt(u[0] * u[0] + u[1] * u[1])
-        v = [u[1] / projectLength, -u[0] / projectLength]
+        if (projectLength != 0):
+            v = [u[1] / projectLength, -u[0] / projectLength]
+        else:
+            v = [0, 0]
+
         self._player[playerId].setPosition([v2[0] + v[0] * distance,
                                             v2[1] + v[1] * distance,
                                             v2[2]])
