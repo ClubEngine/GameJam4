@@ -9,7 +9,7 @@ class Player:
     """
     _actions = dict()
 
-    def __init__(self, name, position, scene):
+    def __init__(self, name, typeName, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
                 "melee_attack": [500,9,10],
@@ -17,6 +17,7 @@ class Player:
                 "jump" : [350,9]})
 
         self._name = name
+        self._typeName = typeName
         self._scene = scene
         self._life = 100
         self._pos = position
@@ -32,7 +33,10 @@ class Player:
         self._jumpFrameNumber = 0
 
     def name(self):
-        return self._name;
+        return self._name
+
+    def typeName(self):
+        return self._typeName
 
     def position(self):
         return self._pos

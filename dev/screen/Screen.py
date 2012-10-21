@@ -16,17 +16,17 @@ class Screen:
         self._hud = HUD(self)
         self._grid = Grid(self)
         self._players = pygame.sprite.Group()
-        player1 = PlayerSprite('pirate', 0)
+        player1 = PlayerSprite(scene.getPlayer(0), 0)
         self._playerG1 = pygame.sprite.Group()
         self._playerG1.add(player1)
-        player2 = PlayerSprite('ninja', 1)
+        player2 = PlayerSprite(scene.getPlayer(1), 1)
         self._playerG2 = pygame.sprite.Group()
         self._playerG2.add(player2)
         self._players.add(player1)
         self._players.add(player2)
         self._shadows = pygame.sprite.Group()
-        self._shadows.add(ShadowSprite(player1))
-        self._shadows.add(ShadowSprite(player2))
+        self._shadows.add(ShadowSprite(scene.getPlayer(0)))
+        self._shadows.add(ShadowSprite(scene.getPlayer(1)))
         
     def calcPos(self, vector):
         return (
