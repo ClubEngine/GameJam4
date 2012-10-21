@@ -17,7 +17,11 @@ class Screen:
         self._grid = Grid(self)
         self._players = pygame.sprite.Group()
         player1 = PlayerSprite('pirate', 0)
+        self._playerG1 = pygame.sprite.Group()
+        self._playerG1.add(player1)
         player2 = PlayerSprite('ninja', 1)
+        self._playerG2 = pygame.sprite.Group()
+        self._playerG2.add(player2)
         self._players.add(player1)
         self._players.add(player2)
         self._shadows = pygame.sprite.Group()
@@ -48,8 +52,15 @@ class Screen:
 
         self._grid.draw()
         self._shadows.draw(self._window)
-        self._players.draw(self._window)
+
+        if self.calcPosZ(self._scene.getPlayer(0).position()) > self.calcPosZ(self._scene.getPlayer(1).position()):
+            self._playerG1.draw(self._window);
+            self._playerG2.draw(self._window);
+        else:
+            self._playerG2.draw(self._window);
+            self._playerG1.draw(self._window);
+
         self._hud.draw()
 
         pygame.display.flip()
-        
+

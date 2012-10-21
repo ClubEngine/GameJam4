@@ -28,7 +28,7 @@ class SoundManager:
         pygame.mixer.music.stop()
         pygame.mixer.music.set_endevent()
 
-    def playSoundFromEvent(self, playerIndex, event):
+    def playSoundFromEvent(self, event):
         sound = None
         if(event == self.ATTACK):
             sound = pygame.mixer.Sound("sound/punch.ogg")
