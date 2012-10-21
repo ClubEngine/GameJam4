@@ -28,7 +28,7 @@ class Weapon:
         self._pos[2] = position[2]
 
     def active(self):
-        return active
+        return self._active
 
     def update (self, Speed_weapon, elapsedTime):
         if active == False:
@@ -37,10 +37,10 @@ class Weapon:
         self._pos[1] += Speed_weapon * elapsedTime * self._direction[1]
         TTL -= elapsedTime
         if hurtPlayer(playerId, self._pos):
-            active = False
+            self._active = False
             scene.getPlayer(self._playerId).hurt(Damage)
         if TTL < 0:
-            active = False
+            self._active = False
 
     def launch (self):
         self._TTL = MaxTTL
