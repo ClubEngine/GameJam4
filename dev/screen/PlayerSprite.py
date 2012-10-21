@@ -15,6 +15,7 @@ class PlayerSprite(pygame.sprite.Sprite):
         self._jumpList = [[] for i in range(36)]
         self._distantAttackList = [[] for i in range(36)]
         self._meleeAttackList = [[] for i in range(36)]
+        self._deathList = []
         self._player = player
 
         #Chargement des textures !!!
@@ -29,10 +30,18 @@ class PlayerSprite(pygame.sprite.Sprite):
                 self._distantAttackList[i/10].append(sprite)
                 sprite = pygame.image.load(self.SPRITES_PATH + player.typeName() + "-saut/" + str(i) + "deg/" + str(j) + ".png")
                 self._jumpList[i/10].append(sprite)
-
+        for i in range(31):
+            sprite = pygame.image.load(self.SPRITES_PATH + "boom-etoiles/" + str(i).zfill(4) + ".png")
+            self._deathList.append(sprite)
+            
     def update(self, scene, screen):
         #Image number calculation depending the player angle
         position = screen.calcPos(self._player.position())
+        
+        if self._player.isDead():
+            self.image = self._deathList[self._player.getDeathFrameNumber()]
+            return
+            
         direction = screen.calcVec(self._player.direction())
         angle = degrees(atan2(float(-direction[1]), float(direction[0]))) + 180
         imageNbAngle = int(angle) / 10

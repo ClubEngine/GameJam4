@@ -15,7 +15,6 @@ class Scene:
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
-        self._soundManager.playMusic("fightmusic")
         self._elapsedTime = 0;
 
     def _decelerate(self, playerIndex, elapsedTime, ratio=1.0):
@@ -78,30 +77,30 @@ class Scene:
     def moveForward(self, playerIndex, elapsedTime):
         isJumping = self._players[playerIndex].isJumping()
         if isJumping:
-            self._decelerate(playerIndex, elapsedTime, 0.20)
-            elapsedTime /= 3.
+            self._decelerate(playerIndex, elapsedTime, 0.15)
+            elapsedTime /= 1.8
         self._move(playerIndex, elapsedTime, 0, 1)
 
     def moveBackward(self, playerIndex, elapsedTime):
         isJumping = self._players[playerIndex].isJumping()
         if isJumping:
-            self._decelerate(playerIndex, elapsedTime, 0.20)
-            elapsedTime /= 3.
+            self._decelerate(playerIndex, elapsedTime, 0.15)
+            elapsedTime /= 1.8
         
         self._move(playerIndex, elapsedTime, 0, -1)
 
     def moveRight(self, playerIndex, elapsedTime):
         isJumping = self._players[playerIndex].isJumping()
         if isJumping:
-            self._decelerate(playerIndex, elapsedTime, 0.5)
-            elapsedTime /= 4
+            self._decelerate(playerIndex, elapsedTime, 0.25)
+            elapsedTime /= 2.5
         self._move(playerIndex, elapsedTime, 1, 1)
 
     def moveLeft(self, playerIndex, elapsedTime):
         isJumping = self._players[playerIndex].isJumping()
         if isJumping:
-            self._decelerate(playerIndex, elapsedTime, 0.5)
-            elapsedTime /= 4
+            self._decelerate(playerIndex, elapsedTime, 0.25)
+            elapsedTime /= 2.5
         self._move(playerIndex, elapsedTime, 1, -1)
 
     def jump(self, playerIndex, elapsedTime):

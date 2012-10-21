@@ -19,11 +19,12 @@ class Collision:
         self._length = 0
         self.actualize()
         """ initialize arena """
+        rotation = radians(15)
         size = 300
-        self._arenaRight = [ [size, 0], [-1, 0] ]
-        self._arenaLeft = [ [-size, 0], [1, 0] ]
-        self._arenaTop = [ [0, size], [0, -1] ]
-        self._arenaBottom = [ [0, -size], [0, 1] ]
+        self._arenaRight = [ [290, 0], [-cos(radians(15)), sin(radians(15)) ] ]
+        self._arenaLeft = [ [-290, 0], [cos(radians(30)), -sin(radians(30))] ]
+        self._arenaTop = [ [0, 300], [-sin(radians(17)), -cos(radians(17))] ]
+        self._arenaBottom = [ [0, -350], [sin(radians(5)), cos(radians(5))] ]
 
     
 
