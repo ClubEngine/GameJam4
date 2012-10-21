@@ -10,7 +10,9 @@ class ShadowSprite(pygame.sprite.Sprite):
         
     def update(self, scene, screen):
         p = scene.getPlayer(self._player.getID())
-        position = screen.calcPos(p.position())
+        spos = p.position()
+        spos[2] = 0
+        position = screen.calcPos(spos)
         #Position update
         self.rect = self.image.get_rect()
         self.rect.x = position[0]- 75
