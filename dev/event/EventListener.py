@@ -29,10 +29,24 @@ class EventListener:
         self._mouseMap = dict()
 
     def addMouseEvent(self, rectangle, method):
-        pass
+        """
+        Add a mouse event to listen.
+        """
+        lastMouseEventId = 0
+        for mouseEventId in self._mouseMap:
+            if rectangle.colliderect(self._mouseMap[mouseEventId][0]):
+                raise Exception('Mouse event rectangles overlap')
+            lastMouseEventId = mouseEventId
+
+        lastMouseEventId += 1
+        self._mouseMap[lastMouseEventId] = [rectangle, method]
+        return lastMouseEventId
 
     def removeMouseEvent(self, mouseEventId):
-        pass
+        """
+        Remove a mouse event.
+        """
+        del self._mouseMap[mouseEventId]
 
     def bindKeyAction(self, action, char, key):
         """
@@ -63,6 +77,11 @@ class EventListener:
             elif event.type == pygame.KEYUP:
                 if event.key in self._keysMap:
                     self._keysMap[event.key][2] = False;
+            elif event.type == pygame.MOUSEBUTTONUP:
+                for mouseEventTuple in self._mouseMap.itervalues():
+                    if mouseEventTuple[0].collidepoint(event.pos):
+                        mouseEventTuple[1]()
+                        break
             elif event.type == SoundManager.INTRO_END:
                 self._scene.introEnd()
 

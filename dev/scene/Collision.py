@@ -12,7 +12,7 @@ class Collision:
 
     def __init__(self, player0, player1):
         self._players = [player0, player1]
-        self.setCollisionProperties(0.5)
+        self.setCollisionProperties(100)
         self._pos=[[0,0,0], [0,0,0]]
         self._dir=[[0,0,0], [0,0,0]]
         self._length = 0
@@ -25,8 +25,8 @@ class Collision:
     def actualize(self):
         self._pos[0] = self._players[0].position()
         self._pos[1] = self._players[1].position()
-        self._dir[0][0] = self._pos[0][0] - self._pos[1][0]
-        self._dir[0][1] = self._pos[0][1] - self._pos[1][1]
+        self._dir[0][0] = self._pos[1][0] - self._pos[0][0]
+        self._dir[0][1] = self._pos[1][1] - self._pos[0][1]
         self._length = sqrt( self._dir[0][0] * self._dir[0][0] + self._dir[0][1] * self._dir[0][1] )
         if (self._length != 0):
             self._dir[0][0] /= self._length

@@ -56,6 +56,12 @@ class Player:
     def isDead(self):
         return self._life == 0
 
+    def isAttacking(self):
+        return self._attacking
+
+    def isJumping(self):
+        return self._jumping
+
     def jump(self, elapsedTime):
         self._elapsedTime = elapsedTime
         if not self._jumping:

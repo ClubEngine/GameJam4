@@ -22,6 +22,8 @@ screen = Screen(windowSurfaceObj, scene)
 listener = EventListener(scene)
 
 while True:
+    #print "1", scene._players[0].position()
+    #print "2", scene._players[1].position()
     scene.update()
     listener.listen()
     screen.draw()
