@@ -95,4 +95,9 @@ class Player:
            self._jumping = False
            self._jumpTime = 0
 
+    def jumpRatio(self):
+        return self._jumpTime / maxJumpTime
+
+    def attackRatio(self):
+        return self._attackTime / maxAttackTime
         

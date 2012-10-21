@@ -4,7 +4,7 @@ from SoundManager import SoundManager
 
 maxSpeed = 0.8
 acceleration = 0.0015
-epsilon = 0.03
+epsilon = 0.05
 decel = 0.002
 
 class Scene:
@@ -29,9 +29,7 @@ class Scene:
             player = self._players[playerIndex]
             if not self._eventOccured[playerIndex]:
                 for i in range(0,2):
-                    print i
                     speed = player.speed()[i]
-                    print "speed", speed
                     if speed < epsilon and speed > -epsilon:
                         speed = 0
                     else:
@@ -46,6 +44,8 @@ class Scene:
         self._elapsedTime = elapsedTime
 
     def moveForward(self, playerIndex, elapsedTime):
+        if self._players[playerIndex].speed()[0] < 0:
+            self._players[playerIndex].incrementSpeed(elapsedTime * (decel + acceleration), 0)
         if self._players[playerIndex].speed()[0] < maxSpeed:
             self._players[playerIndex].incrementSpeed(elapsedTime * acceleration, 0)
             if self._players[playerIndex].speed()[0] > maxSpeed:
@@ -53,6 +53,8 @@ class Scene:
         self._eventOccured[playerIndex] = True
 
     def moveBackward(self, playerIndex, elapsedTime):
+        if self._players[playerIndex].speed()[0] > 0:
+            self._players[playerIndex].incrementSpeed(-elapsedTime * (decel + acceleration), 0)
         if self._players[playerIndex].speed()[0] > -maxSpeed:
             self._players[playerIndex].incrementSpeed(-elapsedTime * acceleration, 0)
             if self._players[playerIndex].speed()[0] < -maxSpeed:
@@ -60,6 +62,8 @@ class Scene:
         self._eventOccured[playerIndex] = True
 
     def moveRight(self, playerIndex, elapsedTime):
+        if self._players[playerIndex].speed()[1] < 0:
+            self._players[playerIndex].incrementSpeed(0, elapsedTime * (decel + acceleration))
         if self._players[playerIndex].speed()[1] < maxSpeed:
             self._players[playerIndex].incrementSpeed(0, elapsedTime * acceleration)
             if self._players[playerIndex].speed()[1] > maxSpeed:
@@ -67,6 +71,8 @@ class Scene:
         self._eventOccured[playerIndex] = True
 
     def moveLeft(self, playerIndex, elapsedTime):
+        if self._players[playerIndex].speed()[1] > 0:
+            self._players[playerIndex].incrementSpeed(0, -elapsedTime * (decel + acceleration))
         if self._players[playerIndex].speed()[1] > -maxSpeed:
             self._players[playerIndex].incrementSpeed(0, -elapsedTime * acceleration)
             if self._players[playerIndex].speed()[1] < -maxSpeed:
