@@ -106,7 +106,7 @@ class Player:
         self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
 
         #Collisions
-        if self._scene.getCollision().getDistance() < self._attackFrameNumber and self._scene.getCollision.getCollisionHorizontale() < 1 :
+        if self._scene.getCollision().getDistance() < self._attackFrameNumber *50 and self._scene.getCollision().getCollisionVerticale() < 2 :
             self.hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
@@ -118,7 +118,7 @@ class Player:
         self._jumpFrameNumber = min((self._actions["jump"][1] * self._jumpTime) / self._actions["jump"][0] - 1,self._actions["jump"][1] - 1)
 
         maxJumpTime = self._actions["jump"][0]
-        jumpTime = (self._jumpTime - maxJumpTime) 
+        jumpTime = (self._jumpTime - maxJumpTime)
         jumpDelta = 2.0 / (maxJumpTime * maxJumpTime)
         self._pos[2] = jumpDelta * (-(jumpTime * jumpTime) + maxJumpTime * maxJumpTime)
         if self._jumpTime >= 2*maxJumpTime:
