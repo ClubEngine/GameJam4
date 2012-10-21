@@ -1,6 +1,6 @@
 import pygame 
 from SoundManager import SoundManager
-from Scene import Weapon
+from Weapon import *
 
 class Player:
 
