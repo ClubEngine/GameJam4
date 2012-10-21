@@ -15,7 +15,6 @@ class Scene:
         self._collision = Collision(self._players[0], self._players[1])
         self._eventOccured = [ False, False ]
         self._soundManager = SoundManager()
-        self._soundManager.playMusic("fightmusic")
         self._elapsedTime = 0;
 
     def _decelerate(self, playerIndex, elapsedTime, ratio=1.0):
@@ -108,7 +107,7 @@ class Scene:
         self._players[playerIndex].jump(elapsedTime)
 
     def attack(self, playerIndex, elapsedTime):
-        self._players[playerIndex].attack(elapsedTime)
+        self._players[playerIndex].attack(elapsedTime, self._collision.getDistance())
 
     def getPlayer(self, playerId):
         """ retourne le joueur playerId.

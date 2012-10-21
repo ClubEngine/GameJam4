@@ -24,7 +24,7 @@ class Collision:
         self._arenaRight = [ [290, 0], [-cos(radians(15)), sin(radians(15)) ] ]
         self._arenaLeft = [ [-290, 0], [cos(radians(30)), -sin(radians(30))] ]
         self._arenaTop = [ [0, 300], [-sin(radians(17)), -cos(radians(17))] ]
-        self._arenaBottom = [ [0, -350], [sin(radians(5)), cos(radians(5))] ]
+        self._arenaBottom = [ [0, -400], [sin(radians(5)), cos(radians(5))] ]
 
     
 
