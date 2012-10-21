@@ -75,8 +75,11 @@ class Main:
         """
         self.loop = False
     
-    def getSoundManager(self):
-        return self._soundManager
+    def changeState(self, state):
+        self.state = state
+        self._soundManager.stop()
+        if(state == GameState.IN_GAME):
+            self._soundManager.playMusic("fightmusic")
         
 # initialization
 m=Main(960, 480)
