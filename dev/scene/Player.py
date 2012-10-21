@@ -91,10 +91,10 @@ class Player:
         self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attackTime = 0
-            if distance > 200
+            if distance > 200:
                 self._attacking = "melee_attack"
                 self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
-            else 
+            else :
                 self._attacking = "ranged_attack"
                 self._scene.getSoundManager().playSoundFromEvent(SoundManager.MELEE_ATTACK, self._typeName)
     
