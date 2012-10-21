@@ -1,5 +1,6 @@
 import pygame 
 from SoundManager import SoundManager
+from Scene import Weapon
 
 class Player:
 
@@ -9,7 +10,7 @@ class Player:
     """
     _actions = dict()
 
-    def __init__(self, name, typeName, position, scene):
+    def __init__(self, name, typeName, position, scene, playerId):
         # Actions communes a tous les types de personnages
         self._actions = dict({
                 "melee_attack": [200,9,1],
@@ -32,6 +33,7 @@ class Player:
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
         self._deathFrameNumber = 0
+        self._weapon = Weapon(scene, playerId)
         
     def name(self):
         return self._name
@@ -150,4 +152,7 @@ class Player:
 
     def attackRatio(self):
         return self._attackTime / maxAttackTime
+
+    def weapon (self):
+        return self._weapon
         
