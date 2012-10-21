@@ -33,7 +33,10 @@ class Player:
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
         self._deathFrameNumber = 0
-        self._weapon = Weapon(scene, playerId)
+        if typeName == 'pirate':
+            self._weapon = Weapon(scene, playerId, 'balle')
+        else:
+            self._weapon = Weapon(scene, playerId, 'shurikens')
         
     def name(self):
         return self._name
