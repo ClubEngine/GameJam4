@@ -8,10 +8,9 @@ class Screen:
     u = (2./3, -1./3.5)
     v = (-2./3, -1./3.5)
 
-    def __init__(self, window, scene, font):
+    def __init__(self, window, scene):
         self._window = window
         self._scene = scene
-        self._font = font
         self._hud = HUD(self)
         self._grid = Grid(self)
         self._players = pygame.sprite.RenderPlain()
