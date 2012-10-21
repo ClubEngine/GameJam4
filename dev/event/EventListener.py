@@ -95,6 +95,9 @@ class EventListener:
         """
         Quit the program.
         """
-        self._main.state = GameState.START_MENU
-        self._main._startMenu.initListeners()
+        if self._main.state == GameState.START_MENU:
+            self._main._startMenu.quitGame()
+        else:
+            self._main.state = GameState.START_MENU
+            self._main._startMenu.initListeners()
 
