@@ -54,5 +54,5 @@ class SoundManager:
             
         if(sound != None):
             channel = pygame.mixer.find_channel(True)
-            channel.set_volume(0.7)
+            channel.set_volume(0.8)
             channel.play(sound)
