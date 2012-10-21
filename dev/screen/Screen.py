@@ -60,6 +60,8 @@ class Screen:
             self._playerG2.draw(self._window);
             self._playerG1.draw(self._window);
 
+        self._grid.afterDraw()
+
         self._hud.draw()
 
         pygame.display.flip()
