@@ -65,7 +65,7 @@ class Player:
         self._dir[2] = direction[2]        
 
     def hurt(self, damage):
-        self._scene.getSoundManager().playSoundFromEvent(SoundManager.HURT)
+        self._scene.getSoundManager().playSoundFromEvent(SoundManager.HURT, self._typeName)
         self._life -= damage
         if self._life < 0:
             self._life = 0
@@ -84,14 +84,14 @@ class Player:
         if not self._jumping:
             self._jumpTime = 0 
             self._jumping = True
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.JUMP, self._typeName)
             
     def attack(self, elapsedTime):
         self._elapsedTime = elapsedTime
         if not self._attacking:
             self._attacking = "melee_attack"
             self._attackTime = 0
-            self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK)
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.ATTACK, self._typeName)
     
     def update(self, elapsedTime):
         self._elapsedTime = elapsedTime
