@@ -20,7 +20,7 @@ fontObj = pygame.font.Font('freesansbold.ttf', 42)
 msg = "Hello world!"
 
 scene = Scene()
-screen = Screen(windowSurfaceObj, scene)
+screen = Screen(windowSurfaceObj, scene, fontObj)
 listener = EventListener(scene)
 
 while True:
