@@ -31,6 +31,7 @@ while True:
     listener.listen()
     screen.draw()
     msg = str(scene._players[0].position())
+    msg1 = str(scene._players[0].speed())
     # msg += str(scene._players[1].position())
     msgSurfaceObj = fontObj.render(msg, False, bluecolor)
     msgRectObj = msgSurfaceObj.get_rect()
@@ -38,6 +39,7 @@ while True:
     msgRectObj.topleft = (10, 20)
     windowSurfaceObj.blit(msgSurfaceObj, msgRectObj)
     pygame.display.update()
-    #scene.moveBackward(0, 1)
-    scene.moveRight(0, .1)
-    print msg
+    #scene.moveForward(0, 0.001)
+    #scene.moveRight(0, .001)
+    scene.moveLeft(0, .001)
+    print msg + '!' + msg1

@@ -1,5 +1,6 @@
 import pygame, sys
 from pygame.locals import *
+from scene import SoundManager
 
 class EventListener:
     """ Classe gerant les evenements. """
@@ -25,6 +26,39 @@ class EventListener:
                 pygame.K_RIGHT : [self._scene.moveRight, 1, False],
                 pygame.K_RCTRL : [self._scene.jump, 1, False],
                 pygame.K_KP0 : [self._scene.attack, 1, False]})
+        self._mouseMap = dict()
+
+    def addMouseEvent(self, rectangle, method):
+        """
+        Add a mouse event to listen.
+        """
+        lastMouseEventId = 0
+        for mouseEventId in self._mouseMap:
+            if rectangle.colliderect(self._mouseMap[mouseEventId][0]):
+                raise Exception('Mouse event rectangles overlap')
+            lastMouseEventId = mouseEventId
+
+        lastMouseEventId += 1
+        self._mouseMap[lastMouseEventId] = [rectangle, method]
+        return lastMouseEventId
+
+    def removeMouseEvent(self, mouseEventId):
+        """
+        Remove a mouse event.
+        """
+        del self._mouseMap[mouseEventId]
+
+    def bindKeyAction(self, action, char, key):
+        """
+        Set the key which allow the character char to perform the action action.
+        """
+        # Copy of the dict to allow deletion during iteration
+        keysMapTmp = self._keysMap.copy()
+        for actionKey in keysMapTmp:
+            if (self._keysMap[actionKey][0] == action and self._keysMap[actionKey][1] == char) or actionKey == key:
+                del self._keysMap[actionKey]
+
+        self._keysMap[key] = [action, char, False];
 
     def listen(self):
         """
@@ -43,6 +77,13 @@ class EventListener:
             elif event.type == pygame.KEYUP:
                 if event.key in self._keysMap:
                     self._keysMap[event.key][2] = False;
+            elif event.type == pygame.MOUSEBUTTONUP:
+                for mouseEventTuple in self._mouseMap.itervalues():
+                    if mouseEventTuple[0].collidepoint(event.pos):
+                        mouseEventTuple[1]()
+                        break
+            elif event.type == SoundManager.INTRO_END:
+                self._scene.introEnd()
 
         for actionKey in self._keysMap:
             isKeyDown = self._keysMap[actionKey][2]
