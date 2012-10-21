@@ -12,9 +12,9 @@ class Player:
     def __init__(self, name, typeName, position, scene):
         # Actions communes a tous les types de personnages
         self._actions = dict({
-                "melee_attack": [200,9,10],
-                "ranged_attack" : [1000,9,10],
-                "jump" : [2050,9]})
+                "melee_attack": [200,9,1],
+                "ranged_attack" : [1000,9,1],
+                "jump" : [350,9]})
 
         self._name = name
         self._typeName = typeName
@@ -111,7 +111,7 @@ class Player:
         self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0] - 1,self._actions[self._attacking][1] - 1)
 
         #Collisions
-        if self._scene.getCollision().getDistance() < self._attackFrameNumber *50 and self._scene.getCollision().getCollisionVerticale() < 2 :
+        if self._scene.getCollision().getDistance() < (50 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
             self.hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
