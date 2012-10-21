@@ -16,10 +16,8 @@ fpsClock = pygame.time.Clock()
 
 windowSurfaceObj = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.DOUBLEBUF)
 pygame.display.set_caption("Street Pirates Vs. Ninja")
-fontObj = pygame.font.Font('freesansbold.ttf', 42)
-msg = "Hello world!"
 
-scene = Scene()
+scene = Scene([ [2, 2, 0], [1, 0, 0] ])
 screen = Screen(windowSurfaceObj, scene)
 listener = EventListener(scene)
 
