@@ -42,7 +42,8 @@ class PlayerSprite(pygame.sprite.Sprite):
         
         #Image update
         if p.isAttacking():
-            self.image = self._meleeAttackList[imageNbAngle][p.getAttackFrameNumber()]
+            #self.image = self._meleeAttackList[imageNbAngle][p.getAttackFrameNumber()]
+            self.image = self._meleeAttackList[imageNbAngle][0]
         else:
             self.image = self._movementSpritesList[imageNbAngle]
 
