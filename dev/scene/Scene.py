@@ -72,11 +72,9 @@ class Scene:
 
     def jump(self, playerIndex, elapsedTime):
         self._players[playerIndex].jump(elapsedTime)
-        self._soundManager.playSoundFromEvent(playerIndex, SoundManager.JUMP)
 
     def attack(self, playerIndex, elapsedTime):
-        self._players[playerIndex].attack(elapsedTime) 
-        self._soundManager.playSoundFromEvent(playerIndex, SoundManager.ATTACK)
+        self._players[playerIndex].attack(elapsedTime)
 
     def getPlayer(self, playerId):
         """ retourne le joueur playerId.
@@ -89,3 +87,6 @@ class Scene:
     
     def introEnd(self):
         self._soundManager.introEnd()
+    
+    def getSoundManager(self):
+        return self._soundManager;
