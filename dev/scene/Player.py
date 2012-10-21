@@ -139,7 +139,7 @@ class Player:
         self._attackFrameNumber = min((self._actions[self._attacking][1] * self._attackTime) / self._actions[self._attacking][0]/2,self._actions[self._attacking][1] - 1)
 
         #Collisions
-        if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 0.5 :
+        if self._scene.getCollision().getDistance() < (45 + self._attackFrameNumber)*2  and self._scene.getCollision().getCollisionVerticale() < 2 :
             self._scene.getOtherPlayer(self).hurt(self._actions[self._attacking][2]);
 
         if self._attackTime > self._actions[self._attacking][0]:
@@ -160,7 +160,8 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        return
+        self._deathFrameNumber = min(self._deathFrameNumber + 1, 30)
+        
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
