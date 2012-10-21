@@ -21,15 +21,15 @@ class EventListener:
     def listen(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                self._quit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-                self._keysMap[event.key][2] = pygame.time.get_ticks()
+                    self._quit()
+                if event.key in self._keysMap:
+                    self._keysMap[event.key][2] = pygame.time.get_ticks()
             elif event.type == pygame.KEYUP:
-                self._keysMap[event.key][2] = 0;
+                if event.key in self._keysMap:
+                    self._keysMap[event.key][2] = 0;
 
         for actionKey in self._keysMap:
             time = self._keysMap[actionKey][2]
@@ -37,4 +37,8 @@ class EventListener:
                 method = self._keysMap[actionKey][0]
                 playerIndex = self._keysMap[actionKey][1]
                 method(playerIndex)
+
+    def _quit(self):
+        pygame.quit()
+        sys.exit()
 
