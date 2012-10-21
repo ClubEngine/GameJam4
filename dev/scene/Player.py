@@ -56,7 +56,7 @@ class Player:
         self._attackTime += timeElapsed
         if self._attackTime > maxAttackTime:
             self._attacking = False
-        # Gérer collisions
+        # Gerer collisions
 
     def _updateJump(self, timeElapsed):
         self._jumpTime += timeElapsed
