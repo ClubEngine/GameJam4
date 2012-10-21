@@ -6,11 +6,11 @@ import pygame
 
 class Screen:
 
-    u = (2./3, -1./3.5)
-    v = (-2./3, -1./3.5)
-    w = (0, -15)
-
     def __init__(self, window, scene):
+        self.u = (2./3, -1./3.5)
+        self.v = (-2./3, -1./3.5)
+        self.w = (0, -15)
+
         self._window = window
         self._scene = scene
         self._hud = HUD(self)
@@ -33,13 +33,7 @@ class Screen:
         )
 
     def calcPosZ(self, vector):
-        return (
-            vector[0]*self.u[0] + vector[1]*self.v[0] + vector[2]*self.w[0] +
-                self._window.get_width()/2,
-            vector[0]*self.u[1] + vector[1]*self.v[1] + vector[2]*self.w[1] +
-                self._window.get_height()/2,
-            0
-        )
+        return vector[0] + vector[1]
 
     def calcVec(self, vector):
         return (
