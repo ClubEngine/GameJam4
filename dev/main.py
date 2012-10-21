@@ -58,7 +58,6 @@ class Main:
                 self._listener.listen()
                 self._startMenu.draw()
             elif self.state == GameState.IN_GAME:
-                self._scene.update()
                 self._listener.listen()
                 self._screen.draw()
 
