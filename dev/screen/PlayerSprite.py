@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from math import *
 
@@ -30,8 +31,10 @@ class PlayerSprite(pygame.sprite.Sprite):
                 self._distantAttackList[i/10].append(sprite)
                 sprite = pygame.image.load(self.SPRITES_PATH + player.typeName() + "-saut/" + str(i) + "deg/" + str(j) + ".png")
                 self._jumpList[i/10].append(sprite)
+        
+        x = random.randint(1,6)
         for i in range(31):
-            sprite = pygame.image.load(self.SPRITES_PATH + "boom-etoiles/" + str(i).zfill(4) + ".png")
+            sprite = pygame.image.load(self.SPRITES_PATH + "boom-vortex" + str(x) + "/" + str(i).zfill(4) + ".png")
             self._deathList.append(sprite)
             
     def update(self, scene, screen):

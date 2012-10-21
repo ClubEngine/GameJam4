@@ -33,6 +33,7 @@ class Player:
         self._attackFrameNumber = 0
         self._jumpFrameNumber = 0
         self._deathFrameNumber = 0
+        self._deathTime = 0
         self._weapon = Weapon(scene, playerId)
         
     def name(self):
@@ -149,7 +150,8 @@ class Player:
            self._jumpTime = 0
 
     def _updateDeath(self, elapsedTime):
-        return
+        self._deathFrameNumber =  min(self._deathFrameNumber+1, 30)
+        
     def jumpRatio(self):
         return self._jumpTime / maxJumpTime
 
