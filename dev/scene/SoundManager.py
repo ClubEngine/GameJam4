@@ -9,11 +9,13 @@ class SoundManager:
     DISTANT_ATTACK  = 4
     MELEE_ATTACK  = 5
     HURT  = 6
+    DEATH  = 7
+    
     def __init__(self):
         pygame.mixer.pre_init(44100, -16, 2, 256)
         pygame.mixer.init()
         self._currentMusicName = ""
-    
+        
     def playMenuMusic(self):
         sound = pygame.mixer.music.load("music/maintheme.ogg")
         pygame.mixer.music.play()
@@ -51,7 +53,8 @@ class SoundManager:
             sound = None
         elif(event == self.HURT):
             sound = pygame.mixer.Sound("sound/hurt.ogg")
-            
+        elif(event == self.DEATH):
+            sound = pygame.mixer.Sound("sound/argh.ogg")
         if(sound != None):
             channel = pygame.mixer.find_channel(True)
             channel.set_volume(0.8)

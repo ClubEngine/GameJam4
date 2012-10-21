@@ -73,6 +73,7 @@ class Player:
         self._life -= damage
         if self._life < 0:
             self._life = 0
+            self._scene.getSoundManager().playSoundFromEvent(SoundManager.DEATH, self._typeName)
 
     def isDead(self):
         return self._life == 0
